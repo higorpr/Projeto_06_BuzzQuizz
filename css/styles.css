@@ -107,7 +107,7 @@ h1 {
     font-size: 20px;
 }
 
-.quiz_row {
+.quiz_row, .quiz_row_2 {
     display: flex;
     justify-content: space-between;
     margin-top: 12px;
