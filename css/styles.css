@@ -1,0 +1,149 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+header {
+    background-color: #ec362d;
+    box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.25);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 69px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header p {
+    width: 176px;
+    height: 43px;
+    font-weight: 700;
+    font-size: 37px;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 69px 0 0 0;
+    align-items: center;
+}
+
+.empty_quizzes {
+    border: 1px dashed #d4d4d4;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 1051px;
+    height: 181px;
+    margin: 77px 0px;
+    border-radius: 5px;
+}
+
+.empty_quizzes p {
+    font-size: 20px;
+    color:#b9b9b9;
+    font-weight: 400;
+    width: 250px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    line-height: 23.44px;
+}
+
+.empty_quizzes button {
+    color: #ec362d;
+    font-weight: 400;
+    font-size: 21px;
+    border: 1px dashed #ec362d;
+    border-radius: 50px;
+    background-color: #ffffff;
+    width: 151px;
+    height: 40px;
+}
+
+.user_quizzes {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 1051px;
+    margin: 69px 0 48px 0;
+}
+
+.user_title {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.user_title ion-icon {
+    color: #ec362d;
+    font-size: 31px;
+    margin-left: 10px;
+}
+
+.user_row {
+    display: flex;
+    justify-content: left;
+    margin-top: 13px;
+}
+
+.division {
+    width: 15px;
+}
+
+.all_quizzes {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 1051px;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.quiz_row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+
+.quiz_thumbnail {
+    position: relative;
+}
+
+.quiz_thumbnail img {
+    width: 340px;
+    height: 181px;
+    border-radius: 5px;
+}
+
+.overlay {
+    width: 340px;
+    height: 181px;
+    position: absolute;
+    left:0;
+    top:0;
+    border-radius: 5px;
+    background: 
+    linear-gradient(to bottom, rgba(255,255,255,0.0) 0%,rgba(0, 0, 0, 0.8) 100%);
+}
+
+.quiz_sub {
+    position: absolute;
+    color: #ffffff;
+    bottom: 7px;
+    left: 18px;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 22.27px;
+}
+
+.hide {
+    display: none;
+}
