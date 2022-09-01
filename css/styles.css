@@ -244,7 +244,7 @@ h1 {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .quiz_result {
@@ -314,7 +314,7 @@ h1 {
 }
 
 .home {
-    border:none;
+    border: none;
     background-color: #fafafa;
     width: 220px;
     height: 44px;
@@ -322,6 +322,49 @@ h1 {
     font-size: 21px;
     font-weight: 400;
     text-align: center;
+}
+
+.create_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.create_page h1 {
+    font-size: 23px;
+    font-weight: 700;
+    margin: 63px 0 36px 0;
+}
+
+.question {
+    height: 825px;
+    width: 600px;
+    transition: all 1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    background-color: #ffffff;
+    padding: 27px 20px 27px 16px;
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    box-shadow: 0 0 5px -4px #000000;
+}
+
+.question p {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.question input {
+    width: 564px;
+    height: 46px;
+}
+
+.docked {
+    height: 74px;
 }
 
 .hide {
