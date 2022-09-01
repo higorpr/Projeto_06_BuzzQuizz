@@ -34,7 +34,7 @@
                 Criar quizz
             </button>
         </div>
-        <div class="user_quizzes hide page_1">
+        <div class="user_quizzes page_1">
             <div class="user_title">
                 <h1>
                     Seus Quizzes
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="all_quizzes hide page_1">
+        <div class="all_quizzes page_1">
             <h1>
                 Todos os quizzes
             </h1>
@@ -70,14 +70,13 @@
 
         <!-- Beginnnig Page 2 -->
         <div class="top_image hide page_2">
-            <div class="overlay_top"></div>
-            <img src="images/simpsons_thumbnail.png" alt="">
-            <p>
-                Qual o seu nível de Simpsonmania?
-            </p>
+            
         </div>
         <div class="quiz_content hide page_2">
-            <div class="quiz_question">
+            <div class="questions">
+
+            </div>
+            <!--<div class="quiz_question">
                 <div class="question_head teal">
                     <p>
                         Em qual animal Olho-Tonto Moody transfigurou Malfoy?
@@ -145,7 +144,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="quiz_result">
                 <div class="result_perc">
                     <p>
@@ -165,7 +164,7 @@
                 <button class="restart">
                     Reiniciar Quizz
                 </button>
-                <button class="home">
+                <button onclick="exitQuiz()" class="home">
                     Voltar para home
                 </button>
             </div>
@@ -173,7 +172,7 @@
         <!-- Ending Page 2 -->
 
         <!-- Beginning Page 3 -->
-        <div class="create_page page_3">
+        <div class="create_page hide page_3">
             <h1>
                 Comece pelo começo
             </h1>

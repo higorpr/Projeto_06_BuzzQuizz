@@ -129,6 +129,9 @@ h1 {
     height: 181px;
     border-radius: 5px;
 }
+.quiz_thumbnail:hover{
+    cursor: pointer;
+}
 
 .overlay {
     width: 340px;
@@ -323,6 +326,9 @@ h1 {
     font-weight: 400;
     text-align: center;
 }
+.home:hover{
+    cursor: pointer;
+}
 
 .create_page {
     display: flex;
@@ -399,10 +405,10 @@ h1 {
     background-color: #000000;
 }
 
-.right_answer {
+.true_answer {
     color: #009c22;
 }
 
-.wrong_answer {
+.false_answer {
     color: #ff4b4b;
 }
