@@ -3,9 +3,12 @@ const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 let quizzes = [];
 const n = 6;
 
+const quiz_row = document.querySelector('.quiz_row');
+const quiz_row_2 = document.querySelector('.quiz_row_2');
+
 function renderQuizzes(){
-    const quiz_row = document.querySelector('.quiz_row');
-    const quiz_row_2 = document.querySelector('.quiz_row_2');
+    quiz_row.innerHTML = "";
+    quiz_row_2.innerHTML = "";
 
     for ( let i = 0; i < n/2 ; i++){
 
@@ -134,5 +137,6 @@ function exitQuiz(){
 
     top_image.innerHTML = "";
     questions.innerHTML = "";
-
+    
+    getData();
 };
