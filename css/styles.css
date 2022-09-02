@@ -113,15 +113,16 @@ h1 {
     font-size: 20px;
 }
 
-.quiz_row,
-.quiz_row_2 {
+.quiz_row{
     display: flex;
     justify-content: space-between;
     margin-top: 12px;
+    flex-wrap: wrap;
 }
 
 .quiz_thumbnail {
     position: relative;
+    margin-bottom: 12px;
 }
 
 .quiz_thumbnail img {

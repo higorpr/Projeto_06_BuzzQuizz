@@ -1,7 +1,6 @@
 const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 
 let quizzes = [];
-const n = 6;
 let quiz;
 
 const quiz_row = document.querySelector('.quiz_row');
@@ -9,10 +8,9 @@ const quiz_row_2 = document.querySelector('.quiz_row_2');
 const quiz_result = document.querySelector('.quiz_result');
 
 function renderQuizzes(){
-    quiz_row.innerHTML = "";
-    quiz_row_2.innerHTML = "";
+    quiz_row.innerHTML = "";    
 
-    for ( let i = 0; i < n/2 ; i++){
+    for ( let i = 0; i < quizzes.length ; i++){
 
     quiz_row.innerHTML += `
     <div id="${i}" onclick="showQuiz(this)" class="quiz_thumbnail">
@@ -23,20 +21,7 @@ function renderQuizzes(){
                     </p>
                 </div>
     `;
-    };
-
-    for ( let i = n/2; i < n ; i++){
-
-        quiz_row_2.innerHTML += `
-        <div id="${i}" onclick="showQuiz(this)" class="quiz_thumbnail">
-                        <div class="overlay"></div>
-                        <img src="${quizzes[i].image}" alt="">
-                        <p class="quiz_sub">
-                            ${quizzes[i].title}
-                        </p>
-                    </div>
-        `;
-        };
+    };    
 };
 
 function dataArrive(response){
@@ -51,7 +36,7 @@ function dataArrive(response){
 
     // etapa 4: processar a resposta e mostrar na tela (renderizar)
     
-    for( let i = 0; i < n; i++){
+    for( let i = 0; i < response.data.length; i++){
         quizzes.push(response.data[i]);        
     };
 
