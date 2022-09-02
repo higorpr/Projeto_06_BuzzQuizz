@@ -242,7 +242,9 @@ h1 {
     height: 175px;
     margin-bottom: 7.75px;
 }
-
+.option:hover{
+    cursor: pointer;
+}
 .overlay_option {
     position: absolute;
     width: 100%;
