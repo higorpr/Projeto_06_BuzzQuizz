@@ -122,6 +122,7 @@ h1 {
 
 .quiz_thumbnail {
     position: relative;
+    margin-bottom: 12px;
 }
 
 .quiz_thumbnail img {
@@ -244,7 +245,9 @@ h1 {
     height: 175px;
     margin-bottom: 7.75px;
 }
-
+.option:hover{
+    cursor: pointer;
+}
 .overlay_option {
     position: absolute;
     width: 100%;

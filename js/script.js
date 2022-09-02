@@ -1,16 +1,16 @@
 const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 
 let quizzes = [];
-const n = 6;
+let quiz;
 
 const quiz_row = document.querySelector('.quiz_row');
 const quiz_row_2 = document.querySelector('.quiz_row_2');
+const quiz_result = document.querySelector('.quiz_result');
 
 function renderQuizzes(){
-    quiz_row.innerHTML = "";
-    quiz_row_2.innerHTML = "";
+    quiz_row.innerHTML = "";    
 
-    for ( let i = 0; i < n/2 ; i++){
+    for ( let i = 0; i < quizzes.length ; i++){
 
     quiz_row.innerHTML += `
     <div id="${i}" onclick="showQuiz(this)" class="quiz_thumbnail">
@@ -21,20 +21,7 @@ function renderQuizzes(){
                     </p>
                 </div>
     `;
-    };
-
-    for ( let i = n/2; i < n ; i++){
-
-        quiz_row_2.innerHTML += `
-        <div id="${i}" onclick="showQuiz(this)" class="quiz_thumbnail">
-                        <div class="overlay"></div>
-                        <img src="${quizzes[i].image}" alt="">
-                        <p class="quiz_sub">
-                            ${quizzes[i].title}
-                        </p>
-                    </div>
-        `;
-        };
+    };    
 };
 
 function dataArrive(response){
@@ -49,7 +36,7 @@ function dataArrive(response){
 
     // etapa 4: processar a resposta e mostrar na tela (renderizar)
     
-    for( let i = 0; i < n; i++){
+    for( let i = 0; i < response.data.length; i++){
         quizzes.push(response.data[i]);        
     };
 
@@ -71,19 +58,62 @@ function comparator() {
 
 let hits = 0;
 
+function checkResult(question){       
+    
+    const quantity = question.parentNode.children.length;
+    const selected = document.querySelectorAll('.answered');    
+    
+    const percentage = Math.round(Number(hits/quantity)*100);    
+
+    if( selected.length === quantity){
+        
+        let title;
+        let text;
+        let img;
+
+        for( let i = (quiz.levels.length - 1); i>= 0; i--){
+            const q = quiz.levels[i];
+
+            if( percentage > q.minValue){                            
+                title = q.title;                
+                text = q.text;    
+                img = q.image;        
+                break;        
+            };            
+        };
+        
+        quiz_result.innerHTML = `
+            <div class="result_perc">
+                <p>
+                     ${percentage}% de acerto: ${title}!
+                </p>
+            </div>
+            <div class="result_description">
+                <img src="${img}" alt="meme result">
+                <p>
+                    ${text}
+                </p>
+            </div>
+        `;
+        quiz_result.classList.remove('hide');
+    };
+};
+
 function selectAnswer(option){
     const question_options = option.parentNode;
     console.log(option);
     console.log(question_options);
-    const check_answer = option.children[2];    
+    const check_answer = option.children[2];
+
+    // inserir class answered para verificação futura
+    question_options.parentNode.classList.add('answered');
 
     for ( let i = 0; i < question_options.children.length; i++){
         if(question_options.children[i] !== option){
-            question_options.children[i].children[0].classList.add('overlay_option');
-            console.log('adicionei o overlay na resposta');
+            question_options.children[i].children[0].classList.add('overlay_option');            
         };
         const p_class = question_options.children[i].children[2];
-        
+
         if( p_class.classList.contains('false_answer')){
             p_class.classList.add('wrong');
         }else{
@@ -93,7 +123,8 @@ function selectAnswer(option){
 
     if( check_answer.classList.contains('true_answer')){
         hits++;
-    };    
+    };
+    checkResult(question_options.parentNode);    
 };
 
 const user_quizzes = document.querySelector('.user_quizzes.page_1');
@@ -105,7 +136,7 @@ const questions = document.querySelector('.questions');
 
 function renderQuiz(id_element){
 
-    const quiz = quizzes[id_element];    
+    quiz = quizzes[id_element];
     const number_questions = quiz.questions.length;    
 
     console.log(quiz);
@@ -153,12 +184,12 @@ function renderQuiz(id_element){
 function showQuiz(element){    
     
     user_quizzes.classList.add('hide');
-    all_quizzes.classList.add('hide');    
+    all_quizzes.classList.add('hide');
 
     top_image.classList.remove('hide');
-    quiz_content.classList.remove('hide');    
-            
-   renderQuiz(element.id);
+    quiz_content.classList.remove('hide');
+
+    renderQuiz(element.id);
 };
 
 function exitQuiz(){
@@ -170,6 +201,7 @@ function exitQuiz(){
 
     top_image.innerHTML = "";
     questions.innerHTML = "";
+    quiz_result.classList.add('hide');
 
     hits = 0;
     
