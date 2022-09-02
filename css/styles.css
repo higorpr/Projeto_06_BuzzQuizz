@@ -199,10 +199,12 @@ h1 {
     flex-direction: column;
     background-color: #ffffff;
     width: 759px;
-    height: 676px;
+    /* height: 676px; */
     align-items: center;
     margin: 42px 0 0 0;
+    padding-bottom: 36px;
     box-shadow: 0 0 5px -4px #000000;
+    box-sizing: border-box;
 }
 
 .question_head {
