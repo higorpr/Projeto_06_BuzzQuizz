@@ -464,10 +464,10 @@ h1 {
     background-color: #000000;
 }
 
-.true_answer {
+.right {
     color: #009c22;
 }
 
-.false_answer {
+.wrong {
     color: #ff4b4b;
 }

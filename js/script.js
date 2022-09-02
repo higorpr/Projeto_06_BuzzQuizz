@@ -65,6 +65,37 @@ function getData(){
 };
 getData();
 
+function comparator() { 
+	return Math.random() - 0.5; 
+};
+
+let hits = 0;
+
+function selectAnswer(option){
+    const question_options = option.parentNode;
+    console.log(option);
+    console.log(question_options);
+    const check_answer = option.children[2];    
+
+    for ( let i = 0; i < question_options.children.length; i++){
+        if(question_options.children[i] !== option){
+            question_options.children[i].children[0].classList.add('overlay_option');
+            console.log('adicionei o overlay na resposta');
+        };
+        const p_class = question_options.children[i].children[2];
+        
+        if( p_class.classList.contains('false_answer')){
+            p_class.classList.add('wrong');
+        }else{
+            p_class.classList.add('right');
+        };
+    };
+
+    if( check_answer.classList.contains('true_answer')){
+        hits++;
+    };    
+};
+
 const user_quizzes = document.querySelector('.user_quizzes.page_1');
 const all_quizzes = document.querySelector('.all_quizzes.page_1');
 
@@ -91,10 +122,12 @@ function renderQuiz(id_element){
         const number_answers = quiz.questions[i].answers.length;
         let question_options = "";
 
+        quiz.questions[i].answers.sort(comparator);
+        
         for ( let n = 0; n < number_answers; n++){
             question_options +=`
-            <div class="option">
-                <div class="overlay_option"></div>
+            <div class="option" onclick="selectAnswer(this)">
+                <div></div>
                 <img src="${quiz.questions[i].answers[n].image}" alt="">
                 <p class="${quiz.questions[i].answers[n].isCorrectAnswer}_answer">
                 ${quiz.questions[i].answers[n].text}
@@ -137,6 +170,8 @@ function exitQuiz(){
 
     top_image.innerHTML = "";
     questions.innerHTML = "";
+
+    hits = 0;
     
     getData();
 };
