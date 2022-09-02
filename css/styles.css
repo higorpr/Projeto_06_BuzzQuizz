@@ -113,10 +113,10 @@ h1 {
     font-size: 20px;
 }
 
-.quiz_row,
-.quiz_row_2 {
+.quiz_row {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 12px;
 }
 
@@ -134,8 +134,8 @@ h1 {
 }
 
 .overlay {
-    width: 340px;
-    height: 181px;
+    width: 100%;
+    height: 100%;
     position: absolute;
     left: 0;
     top: 0;
@@ -351,6 +351,19 @@ h1 {
     align-items: center;
 }
 
+.page3_button {
+    color: #fff5f4;
+    background-color: #ec362d;
+    width: 369px;
+    height: 54px;
+    border-radius: 15px;
+    font-size: 21px;
+    font-weight: 400;
+    text-align: center;
+    border: none;
+    margin-top: 60px;
+}
+
 .quiz_general {
     display: flex;
     flex-direction: column;
@@ -361,6 +374,7 @@ h1 {
     justify-content: center;
     box-sizing: border-box;
     padding: 12px 0 24px 0;
+    box-shadow: 0 0 5px -4px #000000;
 }
 
 .quiz_input {
@@ -378,14 +392,13 @@ h1 {
     color: #bababa;
 }
 
-.user_quiz_questions {
+.user_quiz_questions, .user_levels {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.user_question {
-    height: 825px;
+.user_question, .user_level {
     width: 600px;
     transition: all 1s;
     display: flex;
@@ -399,22 +412,54 @@ h1 {
     box-shadow: 0 0 5px -4px #000000;
 }
 
-.user_question p {
+.user_question p, .user_level p {
     font-weight: 700;
     font-size: 20px;
     margin:27px 0 3px 0;
 }
 
-.user_question_title_box {
+.user_question_title_box, .user_level_title_box {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.user_question_title_box img {
+.user_question_title_box img, .user_level_title_box img {
     width: 23px;
     height: 23px;
     margin-top:25px;
+}
+
+.user_quiz_ready{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ready_image {
+    position: relative;
+    margin-top: 20px;
+}
+
+.ready_image img {
+    width: 500px;
+    height: 266px;
+}
+
+.user_quiz_ready {
+    margin-bottom: 50px;
+}
+
+.user_quiz_ready .page3_button {
+    margin: 45px 0 9px 0px;
+}
+
+.inv_button {
+    font-size: 21px;
+    font-weight: 400;
+    color: #818181;
+    border: none;
+    background-color: #fafafa;
 }
 
 .hidden_docked {
