@@ -207,3 +207,43 @@ function exitQuiz(){
     
     getData();
 };
+
+function hide1Show3() {
+    const page1Arr = document.querySelectorAll('.page_1');
+    const page3Arr = document.querySelectorAll('.page_3');
+
+    // Hide page 1
+    for (let i=0; i < page1Arr.length; i++) {
+        page1Arr[i].classList.add('hide');
+    }
+
+    // Show page 3
+    for (let i=0; i < page3Arr.length; i++) {
+        page3Arr[i].classList.remove('hide');
+    }
+}
+
+function restartQuiz() {
+    const rightAnswerArr = document.querySelectorAll('.right');
+    const wrongAnswerArr = document.querySelectorAll('.wrong');
+    const overlayArr = document.querySelectorAll('.overlay_option');
+    const top = document.querySelector('.top_image');
+    console.log(rightAnswerArr);
+
+    // Removing overlays
+    for (let i=0; i < overlayArr.length; i++) {
+        overlayArr[i].classList.remove('overlay_option');
+    }
+
+    // Removing green markings 
+    for (let i=0; i < rightAnswerArr.length; i++) {
+        rightAnswerArr[i].classList.remove('right')
+    }
+
+    for (let i=0; i < wrongAnswerArr.length; i++) {
+        wrongAnswerArr[i].classList.remove('wrong')
+    }
+
+    // Scrolling Up
+    top.scrollIntoView();
+}

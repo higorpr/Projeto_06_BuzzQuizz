@@ -26,11 +26,11 @@
     </header>
     <main>
         <!-- Beginning Page 1 -->
-        <div class="empty_quizzes page_1 hide">
+        <div class="empty_quizzes page_1">
             <p>
                 Você não criou nenhum quizz ainda :(
             </p>
-            <button>
+            <button onclick="hide1Show3()">
                 Criar quizz
             </button>
         </div>
@@ -39,7 +39,7 @@
                 <h1>
                     Seus Quizzes
                 </h1>
-                <ion-icon name="add-circle"></ion-icon>
+                <ion-icon onclick="hide1Show3()" name="add-circle"></ion-icon>
             </div>
             <div class="user_row">
                 <div class="quiz_thumbnail">
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="all_quizzes page_1 hide">
+        <div class="all_quizzes page_1">
             <h1>
                 Todos os quizzes
             </h1>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
             </div>-->
-            <div class="quiz_result hide">
+            <div class="quiz_result">
                 <!--<div class="result_perc">
                     <p>
                         88% de acerto: Você é praticamente um aluno de Hogwarts!
@@ -160,7 +160,7 @@
                 </div>-->
             </div>
             <div class="end_buttons">
-                <button class="restart">
+                <button onclick="restartQuiz()" class="restart">
                     Reiniciar Quizz
                 </button>
                 <button onclick="exitQuiz()" class="home">
@@ -171,7 +171,7 @@
         <!-- Ending Page 2 -->
 
         <!-- Beginning Page 3 -->
-        <div class="create_page page_3">
+        <div class="create_page page_3 hide">
             
             <div class="start_user_quiz">
                 <h1>
