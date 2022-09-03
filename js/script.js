@@ -126,7 +126,7 @@ function selectAnswer(option) {
     for (let i = 0; i < question_options.children.length; i++) {
         if (question_options.children[i] !== option) {
             question_options.children[i].children[0].classList.add('overlay_option');
-            question_options.children[i].removeAttribute("onclick");
+            question_options.children[i].setAttribute("onclick", "disabled");
         };
         const p_class = question_options.children[i].children[2];
 
@@ -152,14 +152,15 @@ const all_quizzes = document.querySelector('.all_quizzes.page_1');
 const top_image = document.querySelector('.top_image.page_2');
 const quiz_content = document.querySelector('.quiz_content.page_2');
 
+let id;
 
-function renderQuiz(id_element) {
-
+function renderQuiz(id_element){
+    id = id_element;
     quiz = quizzes[id_element];
-    const number_questions = quiz.questions.length;
+    const number_questions = quiz.questions.length;    
 
     console.log(quiz);
-
+    
     top_image.innerHTML += `
     <div class="overlay_top"></div>
             <img src="${quiz.image}" alt="">
@@ -229,7 +230,8 @@ function exitQuiz() {
     quiz_result.classList.add('hide');
 
     hits = 0;
-
+    quiz = [];
+    
     getData();
 };
 
@@ -243,10 +245,13 @@ function hide1Show3() {
 }
 
 function restartQuiz() {
-    const rightAnswerArr = document.querySelectorAll('.right');
+    //Todo este código abaixo é desnecessário, pois foi feito enxuto lá no fim
+
+    /*const rightAnswerArr = document.querySelectorAll('.right');
     const wrongAnswerArr = document.querySelectorAll('.wrong');
     const overlayArr = document.querySelectorAll('.overlay_option');
     const top = document.querySelector('.top_image');
+    const selected_reset = document.querySelectorAll('.answered');
     console.log(rightAnswerArr);
 
     // Removing overlays
@@ -262,13 +267,41 @@ function restartQuiz() {
     for (let i = 0; i < wrongAnswerArr.length; i++) {
         wrongAnswerArr[i].classList.remove('wrong')
     }
+
+    // Remove class selected for questions
+    for( let i =0; i<selected_reset.length; i++){
+        selected_reset[i].classList.remove('answered');
+    };
+
+    // activated onclick question options
+    for( let i = 0; i < questions.childElementCount; i++){
+        quantity = questions.children[i].children[1].childElementCount;
+        quiz.questions[i].answers.sort(comparator);
+        for( let n = 0; n < quantity; n++){
+        questions.children[i].children[1].children[n].setAttribute("onclick", "selectAnswer(this)");
+        };
+    };
+
+    for ( let i = 0; i < quiz.questions.length; i++){
+        quiz.questions[i].answers.sort(comparator);
+        
+        
+    };
+
     quiz_result.innerHTML = "";
     quiz_result.classList.add('hide');
-
+    hits = 0;
+    
     // Scrolling Up
-    top.scrollIntoView();
-}
+    top.scrollIntoView();*/
 
+    top_image.innerHTML = "";
+    questions.innerHTML = "";
+    quiz_result.innerHTML = "";
+    quiz_result.classList.add('hide');
+    hits = 0;
+    renderQuiz(id);
+};
 
 let newQuizz;
 
