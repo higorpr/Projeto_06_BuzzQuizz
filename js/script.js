@@ -286,7 +286,7 @@ function createQuizz() {
                     <p>
                         Pergunta ${i}
                     </p>
-                    <img class="edit_icon" src="images/edit_icon.png" alt="">
+                    <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editUsrQuestion(this.parentNode.parentNode)">
                 </div>
                 <div class="hiden_docked hide">
                     <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta">
@@ -320,12 +320,10 @@ function createQuizz() {
 }
 
 function editUsrQuestion(question){
+    console.log(question);
     let questionOpBox = question.querySelector(".hiden_docked");
     let questionEditBtn = question.querySelector(".edit_icon");
-    console.log(question);
     question.classList.remove("docked");
-    console.log(questionOpBox);
     questionOpBox.classList.remove("hide");
-    console.log(questionEditBtn);
     questionEditBtn.classList.add("hide");
 }
