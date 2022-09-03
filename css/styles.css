@@ -237,6 +237,9 @@ h1 {
     align-items: center;
     word-break: break-word;
 }
+.question_head p{
+    -webkit-text-stroke: 1.5px #000;
+}
 
 .question_options {
     display: flex;
