@@ -198,7 +198,6 @@ function renderQuiz(id_element){
             </div>`;
     };
     document.querySelector('.overlay_top').scrollIntoView({block: "start"});
-    console.log('scroll quiz');
 };
 
 function showQuiz(element){    
