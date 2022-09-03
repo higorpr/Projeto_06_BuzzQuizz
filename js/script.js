@@ -269,12 +269,10 @@ function restartQuiz() {
     top.scrollIntoView();
 }
 
-function createQuizz() {
-    let title = document.querySelector(".quiz-title").value;
-    let imgUrl = document.querySelector(".quiz-img-url").value;
-    let nrQuestions = document.querySelector(".quiz-nr-questions").value;
-    let nrLevels = document.querySelector(".quiz-nr-levels").value;
 
+let newQuizz;
+
+function createQuestions(nrQuestions){
     let questions = document.querySelector(".user_questions_box");
 
     questions.innerHTML = "";
@@ -286,7 +284,7 @@ function createQuizz() {
                     <p>
                         Pergunta ${i}
                     </p>
-                    <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editUsrQuestion(this.parentNode.parentNode)">
+                    <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)">
                 </div>
                 <div class="hiden_docked hide">
                     <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta">
@@ -312,18 +310,68 @@ function createQuizz() {
                         <input class="url  quiz_input" type="text" placeholder="URL da imagem 3">
                     </div>
                 </div>
-            </div>`
+            </div>`;
     }
 
-    let firstQuestion = questions.querySelector(".q1");
-    editUsrQuestion(firstQuestion);
 }
 
-function editUsrQuestion(question){
-    console.log(question);
-    let questionOpBox = question.querySelector(".hiden_docked");
-    let questionEditBtn = question.querySelector(".edit_icon");
-    question.classList.remove("docked");
-    questionOpBox.classList.remove("hide");
-    questionEditBtn.classList.add("hide");
+function renderQuestionsPage(nrQuestions){
+    let questionsPage = document.querySelector(".user_quiz_questions");
+    questionsPage.classList.remove("hide");
+    createQuestions(nrQuestions);
+
+    let questions = document.querySelector(".user_questions_box");
+    let firstQuestion = questions.querySelector(".q1");
+    editQuizzElement(firstQuestion);
+
 }
+
+function createQuizz() {
+    let title = document.querySelector(".quiz-title").value;
+    let imgUrl = document.querySelector(".quiz-img-url").value;
+    let nrQuestions = document.querySelector(".quiz-nr-questions").value;
+    let nrLevels = document.querySelector(".quiz-nr-levels").value;
+
+    renderQuestionsPage(nrQuestions);
+}
+
+function renderLevelsPage(nrLevels){
+    let levelsPage = document.querySelector(".user_levels");
+    levelsPage.classList.remove("hide");
+    createLevels(nrLevels);
+
+    let levels = document.querySelector(".user_levels_box");
+    let firstLevel = levels.querySelector(".l1");
+    editQuizzElement(firstLevel);
+}
+
+function createLevels(nrLevels){
+    const levelsContainer = document.querySelector(".user_levels_box");
+    levelsContainer.innerHTML = "";
+    for(let i=1; i<=nrLevels;i++){
+        levelsContainer.innerHTML += 
+        `<div class="user_level l${i}">
+            <div class="user_level_title_box docked">
+                <p>
+                    Nível ${i}
+                </p>
+                <img class='edit_icon' src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)">
+            </div>
+            <div class="hiden_docked hide">
+                <input class="level_title quiz_input" type="text" placeholder="Título do Nível">
+                <input class="min_percentage quiz_input" type="text" placeholder="% de acerto mínima">
+                <input class="url_image quiz_input" type="text" placeholder="URL da imagem do nível">
+                <input class="level_description quiz_input" type="text" placeholder="Descrição do nível">
+            </div>
+        </div>`;
+    }
+}
+
+function editQuizzElement(element){
+    let elementOpBox = element.querySelector(".hiden_docked");
+    let elementEditBtn = element.querySelector(".edit_icon");
+    element.classList.remove("docked");
+    elementOpBox.classList.remove("hide");
+    elementEditBtn.classList.add("hide");
+}
+
