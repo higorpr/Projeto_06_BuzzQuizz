@@ -155,7 +155,7 @@ const quiz_content = document.querySelector('.quiz_content.page_2');
 let id;
 
 function renderQuiz(id_element){
-
+    id = id_element;
     quiz = quizzes[id_element];
     const number_questions = quiz.questions.length;    
 
