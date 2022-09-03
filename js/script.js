@@ -303,8 +303,6 @@ function restartQuiz() {
     renderQuiz(id);
 };
 
-let newQuizz;
-
 function createQuestions(nrQuestions){
     let questions = document.querySelector(".user_questions_box");
 
@@ -350,7 +348,8 @@ function createQuestions(nrQuestions){
 
 }
 
-function renderQuestionsPage(){
+function renderQuestionsPage(currentPage){
+    currentPage.classList.add("hide");
     let nrQuestions = document.querySelector(".quiz-nr-questions").value;
     let questionsPage = document.querySelector(".user_quiz_questions");
     questionsPage.classList.remove("hide");
@@ -362,14 +361,15 @@ function renderQuestionsPage(){
 
 }
 
-function createQuizz() {
+function createQuizz(currentPage) {
     let payload = createPayload();
-    // const createQuizzPromise = axios.post(url, payload);
-    // createQuizzPromise.then();
-    // createQuizzPromise.catch();
+    const createQuizzPromise = axios.post(url, payload);
+    createQuizzPromise.then(renderQuizzCreatedPage,currentPage);
+    createQuizzPromise.catch();
 }
 
-function renderLevelsPage(){
+function renderLevelsPage(currentPage){
+    currentPage.classList.add("hide");
     let nrLevels = document.querySelector(".quiz-nr-levels").value;
     let levelsPage = document.querySelector(".user_levels");
     levelsPage.classList.remove("hide");
@@ -469,7 +469,9 @@ function createPayload(){
     console.log(payload);
     return payload;
 }
-function printResponse(){
-    console.log("teste");
+function renderQuizzCreatedPage(currentPage){
+    currentPage.classList.add("hide");
+    const quizzCreatedPage = document.querySelector(".user_quiz_ready");
+    quizzCreatedPage.classList.remove("hide");
 }
 
