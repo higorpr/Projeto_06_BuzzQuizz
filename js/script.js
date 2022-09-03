@@ -57,15 +57,18 @@ function comparator() {
 };
 
 let hits = 0;
+let quantity;
+let selected;
+const questions = document.querySelector('.questions');
 
 function checkResult(question){       
     
-    const quantity = question.parentNode.children.length;
-    const selected = document.querySelectorAll('.answered');    
+    quantity = question.parentNode.children.length;
+    selected = document.querySelectorAll('.answered').length;    
     
     const percentage = Math.round(Number(hits/quantity)*100);    
 
-    if( selected.length === quantity){
+    if( selected === quantity){
         
         let title;
         let text;
@@ -99,6 +102,18 @@ function checkResult(question){
     };
 };
 
+function nextQuestion(){
+    const array = questions.children
+    for ( let i = 1; i < quantity; i++){
+        if( selected === i){
+            setTimeout(() => {array[i].scrollIntoView({block: "center", behavior: "smooth"})}, 2000);
+        };
+        if( selected === quantity){
+            setTimeout(() => {quiz_result.scrollIntoView({block: "center", behavior: "smooth"})}, 2000);
+        }
+    };
+};
+
 function selectAnswer(option){
     const question_options = option.parentNode;
     console.log(option);
@@ -106,11 +121,12 @@ function selectAnswer(option){
     const check_answer = option.children[2];
 
     // inserir class answered para verificação futura
-    question_options.parentNode.classList.add('answered');
+    question_options.parentNode.classList.add('answered');    
 
     for ( let i = 0; i < question_options.children.length; i++){
         if(question_options.children[i] !== option){
-            question_options.children[i].children[0].classList.add('overlay_option');            
+            question_options.children[i].children[0].classList.add('overlay_option');
+            question_options.children[i].removeAttribute("onclick");
         };
         const p_class = question_options.children[i].children[2];
 
@@ -119,12 +135,15 @@ function selectAnswer(option){
         }else{
             p_class.classList.add('right');
         };
+        
     };
 
     if( check_answer.classList.contains('true_answer')){
         hits++;
     };
-    checkResult(question_options.parentNode);    
+    checkResult(question_options.parentNode);
+    //código para rolar pra prox pergunta aqui
+    nextQuestion();
 };
 
 const user_quizzes = document.querySelector('.user_quizzes.page_1');
@@ -132,7 +151,7 @@ const all_quizzes = document.querySelector('.all_quizzes.page_1');
 
 const top_image = document.querySelector('.top_image.page_2');
 const quiz_content = document.querySelector('.quiz_content.page_2');
-const questions = document.querySelector('.questions');
+
 
 function renderQuiz(id_element){
 
@@ -178,7 +197,8 @@ function renderQuiz(id_element){
                 </div>
             </div>`;
     };
-    
+    document.querySelector('.overlay_top').scrollIntoView({block: "start"});
+    console.log('scroll quiz');
 };
 
 function showQuiz(element){    
@@ -189,7 +209,7 @@ function showQuiz(element){
     top_image.classList.remove('hide');
     quiz_content.classList.remove('hide');
 
-    renderQuiz(element.id);
+    renderQuiz(element.id);    
 };
 
 function exitQuiz(){
