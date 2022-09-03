@@ -180,13 +180,12 @@
                     Comece pelo começo
                 </h1>
                 <div class="quiz_general">
-                    <input class="quiz_title quiz_input" type="text" placeholder="Título do seu quizz">
-                    <input class="quiz_url quiz_input" type="text" placeholder="URL da imagem do seu quizz">
-                    <input class="quiz_n_questions quiz_input" type="text"
-                        placeholder="Quantidade de perguntas do quizz">
-                    <input class="quiz_n_levels quiz_input" type="text" placeholder="Quantidades de níveis do quizz">
+                    <input class="quiz-title quiz_input" type="text" placeholder="Título do seu quizz">
+                    <input class="quiz-img-url quiz_input" type="text" placeholder="URL da imagem do seu quizz">
+                    <input class="quiz-nr-questions quiz_input" type="text" placeholder="Quantidade de perguntas do quizz">
+                    <input class="quiz-nr-levels quiz_input" type="text" placeholder="Quantidades de níveis do quizz">
                 </div>
-                <button class="page3_button">
+                <button class="page3_button" onclick="createQuizz()">
                     Prosseguir para criar perguntas
                 </button>
             </div>
@@ -195,104 +194,7 @@
                 <h1>
                     Crie suas perguntas
                 </h1>
-                <div class="user_questions_box">
-                    <div class="user_question q1">
-                        <div class="user_question_title_box">
-                            <p>
-                                Pergunta 1
-                            </p>
-                            <img class='edit_icon hide' src="images/edit_icon.png" alt="">
-                        </div>
-                        <div class="hiden_docked">
-                            <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta">
-                            <input class="question_color quiz_input" type="text" placeholder="Cor de fundo da pergunta">
-                            <p>
-                                Resposta correta
-                            </p>
-                            <input class="answer right quiz_input" type="text" placeholder="Resposta Correta">
-                            <input class="url right quiz_input" type="text" placeholder="URL da imagem">
-                            <p>
-                                Respostas incorretas
-                            </p>
-                            <div class="wrong1">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 1">
-                                <input class="url quiz_input" type="text" placeholder="URL da imagem 1">
-                            </div>
-                            <div class="wrong2">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 2">
-                                <input class="url  quiz_input" type="text" placeholder="URL da imagem 2">
-                            </div>
-                            <div class="wrong3">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 3">
-                                <input class="url  quiz_input" type="text" placeholder="URL da imagem 3">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="user_question q2">
-                        <div class="user_question_title_box">
-                            <p>
-                                Pergunta 2
-                            </p>
-                            <img class='edit_icon' src="images/edit_icon.png" alt="">
-                        </div>
-                        <div class="hiden_docked">
-                            <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta">
-                            <input class="question_color quiz_input" type="text" placeholder="Cor de fundo da pergunta">
-                            <p>
-                                Resposta correta
-                            </p>
-                            <input class="answer right quiz_input" type="text" placeholder="Resposta Correta">
-                            <input class="url right quiz_input" type="text" placeholder="URL da imagem">
-                            <p>
-                                Respostas incorretas
-                            </p>
-                            <div class="wrong1">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 1">
-                                <input class="url quiz_input" type="text" placeholder="URL da imagem 1">
-                            </div>
-                            <div class="wrong2">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 2">
-                                <input class="url  quiz_input" type="text" placeholder="URL da imagem 2">
-                            </div>
-                            <div class="wrong3">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 3">
-                                <input class="url  quiz_input" type="text" placeholder="URL da imagem 3">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="user_question q3 docked">
-                        <div class="user_question_title_box">
-                            <p>
-                                Pergunta 3
-                            </p>
-                            <img class='edit_icon' src="images/edit_icon.png" alt="">
-                        </div>
-                        <div class="hiden_docked hide">
-                            <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta">
-                            <input class="question_color quiz_input" type="text" placeholder="Cor de fundo da pergunta">
-                            <p>
-                                Resposta correta
-                            </p>
-                            <input class="answer right quiz_input" type="text" placeholder="Resposta Correta">
-                            <input class="url right quiz_input" type="text" placeholder="URL da imagem">
-                            <p>
-                                Respostas incorretas
-                            </p>
-                            <div class="wrong1">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 1">
-                                <input class="url quiz_input" type="text" placeholder="URL da imagem 1">
-                            </div>
-                            <div class="wrong2">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 2">
-                                <input class="url  quiz_input" type="text" placeholder="URL da imagem 2">
-                            </div>
-                            <div class="wrong3">
-                                <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 3">
-                                <input class="url  quiz_input" type="text" placeholder="URL da imagem 3">
-                            </div>
-                        </div>
-                    </div>
+                <div class="user_questions_box"> 
                 </div>
                 <button class="page3_button">
                     Prosseguir para criar níveis
