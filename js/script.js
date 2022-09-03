@@ -203,10 +203,12 @@ function renderQuiz(id_element){
     document.querySelector('.overlay_top').scrollIntoView({block: "start"});
 };
 
+const page1 = document.querySelector('.page_1');
+
 function showQuiz(element){    
-    
-    user_quizzes.classList.add('hide');
-    all_quizzes.classList.add('hide');
+    page1.classList.add('hide');
+    //user_quizzes.classList.add('hide');
+    //all_quizzes.classList.add('hide');
 
     top_image.classList.remove('hide');
     quiz_content.classList.remove('hide');
@@ -215,8 +217,9 @@ function showQuiz(element){
 };
 
 function exitQuiz(){
-    user_quizzes.classList.remove('hide');
-    all_quizzes.classList.remove('hide');    
+    page1.classList.remove('hide');
+    //user_quizzes.classList.remove('hide');
+   //all_quizzes.classList.remove('hide');    
 
     top_image.classList.add('hide');
     quiz_content.classList.add('hide');
@@ -231,7 +234,7 @@ function exitQuiz(){
 };
 
 function hide1Show3() {
-    const page1 = document.querySelector('.page_1');
+    
     const page3 = document.querySelector('.page_3');
 
     page1.classList.add("hide");
