@@ -316,12 +316,16 @@ function createQuizz() {
     }
 
     let firstQuestion = questions.querySelector(".q1");
-    let firstQuestionOpBox = firstQuestion.querySelector(".hiden_docked");
-    let firstQuestionEditBtn = firstQuestion.querySelector(".edit_icon");
-    console.log(firstQuestion);
-    firstQuestion.classList.remove("docked");
-    console.log(firstQuestionOpBox);
-    firstQuestionOpBox.classList.remove("hide");
-    console.log(firstQuestionEditBtn);
-    firstQuestionEditBtn.classList.add("hide");
+    editUsrQuestion(firstQuestion);
+}
+
+function editUsrQuestion(question){
+    let questionOpBox = question.querySelector(".hiden_docked");
+    let questionEditBtn = question.querySelector(".edit_icon");
+    console.log(question);
+    question.classList.remove("docked");
+    console.log(questionOpBox);
+    questionOpBox.classList.remove("hide");
+    console.log(questionEditBtn);
+    questionEditBtn.classList.add("hide");
 }
