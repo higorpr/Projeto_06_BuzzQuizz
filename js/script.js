@@ -231,18 +231,11 @@ function exitQuiz(){
 };
 
 function hide1Show3() {
-    const page1Arr = document.querySelectorAll('.page_1');
-    const page3Arr = document.querySelectorAll('.page_3');
+    const page1 = document.querySelector('.page_1');
+    const page3 = document.querySelector('.page_3');
 
-    // Hide page 1
-    for (let i=0; i < page1Arr.length; i++) {
-        page1Arr[i].classList.add('hide');
-    }
-
-    // Show page 3
-    for (let i=0; i < page3Arr.length; i++) {
-        page3Arr[i].classList.remove('hide');
-    }
+    page1.classList.add("hide");
+    page3.classList.remove("hide");
 }
 
 function restartQuiz() {

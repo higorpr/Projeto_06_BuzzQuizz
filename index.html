@@ -26,50 +26,52 @@
     </header>
     <main>
         <!-- Beginning Page 1 -->
-        <div class="empty_quizzes page_1">
-            <p>
-                Você não criou nenhum quizz ainda :(
-            </p>
-            <button onclick="hide1Show3()">
-                Criar quizz
-            </button>
-        </div>
-        <div class="user_quizzes page_1">
-            <div class="user_title">
+        <div class="page_1">
+            <div class="empty_quizzes page_1">
+                <p>
+                    Você não criou nenhum quizz ainda :(
+                </p>
+                <button onclick="hide1Show3()">
+                    Criar quizz
+                </button>
+            </div>
+            <div class="user_quizzes page_1">
+                <div class="user_title">
+                    <h1>
+                        Seus Quizzes
+                    </h1>
+                    <ion-icon onclick="hide1Show3()" name="add-circle"></ion-icon>
+                </div>
+                <div class="user_row">
+                    <div class="quiz_thumbnail">
+                        <div class="overlay"></div>
+                        <img src="images/simpsons_thumbnail.png" alt="">
+                        <p class="quiz_sub">
+                            Acerte os personagens corretos dos Simpsons e prove seu amor!
+                        </p>
+                    </div>
+                    <div class="division"></div>
+                    <div class="quiz_thumbnail">
+                        <div class="overlay"></div>
+                        <img src="images/simpsons_thumbnail.png" alt="">
+                        <p class="quiz_sub">
+                            Acerte os personagens corretos dos Simpsons e prove seu amor!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="all_quizzes page_1">
                 <h1>
-                    Seus Quizzes
+                    Todos os quizzes
                 </h1>
-                <ion-icon onclick="hide1Show3()" name="add-circle"></ion-icon>
+                <div class="quiz_row"></div>
             </div>
-            <div class="user_row">
-                <div class="quiz_thumbnail">
-                    <div class="overlay"></div>
-                    <img src="images/simpsons_thumbnail.png" alt="">
-                    <p class="quiz_sub">
-                        Acerte os personagens corretos dos Simpsons e prove seu amor!
-                    </p>
-                </div>
-                <div class="division"></div>
-                <div class="quiz_thumbnail">
-                    <div class="overlay"></div>
-                    <img src="images/simpsons_thumbnail.png" alt="">
-                    <p class="quiz_sub">
-                        Acerte os personagens corretos dos Simpsons e prove seu amor!
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="all_quizzes page_1">
-            <h1>
-                Todos os quizzes
-            </h1>
-            <div class="quiz_row"></div>            
         </div>
         <!-- Ending Page 1 -->
 
         <!-- Beginnnig Page 2 -->
         <div class="top_image hide page_2">
-            
+
         </div>
         <div class="quiz_content hide page_2">
             <div class="questions">
@@ -172,7 +174,7 @@
 
         <!-- Beginning Page 3 -->
         <div class="create_page page_3 hide">
-            
+
             <div class="start_user_quiz">
                 <h1>
                     Comece pelo começo
@@ -188,7 +190,7 @@
                     Prosseguir para criar perguntas
                 </button>
             </div>
-        
+
             <div class="user_quiz_questions">
                 <h1>
                     Crie suas perguntas
@@ -357,7 +359,7 @@
                 <div class="ready_image">
                     <div class="overlay"></div>
                     <img src="images/simpsons_thumbnail.png" alt="Quiz image">
-                    <p class ="quiz_sub" >
+                    <p class="quiz_sub">
                         O quanto você gosta de Simpsons?
                     </p>
                 </div>
