@@ -98,7 +98,7 @@ function checkResult(question){
                 </p>
             </div>
         `;
-        quiz_result.classList.remove('hide');
+        setTimeout(() => {quiz_result.classList.remove('hide')}, 2000);
     };
 };
 
@@ -258,6 +258,8 @@ function restartQuiz() {
     for (let i=0; i < wrongAnswerArr.length; i++) {
         wrongAnswerArr[i].classList.remove('wrong')
     }
+    quiz_result.innerHTML = "";
+    quiz_result.classList.add('hide');
 
     // Scrolling Up
     top.scrollIntoView();
