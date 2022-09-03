@@ -236,6 +236,7 @@ function exitQuiz(){
 function hide1Show3() {
     
     const page3 = document.querySelector('.page_3');
+    const page1 = document.querySelector(".page_1")
 
     page1.classList.add("hide");
     page3.classList.remove("hide");
