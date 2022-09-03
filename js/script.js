@@ -184,10 +184,10 @@ function renderQuiz(id_element){
                 </p>
             </div>
             `
-        };
+        };        
         questions.innerHTML += `
         <div class="quiz_question">
-                <div class="question_head teal">
+                <div class="question_head">
                     <p>
                         ${quiz.questions[i].title}
                     </p>
@@ -196,6 +196,9 @@ function renderQuiz(id_element){
                     ${question_options}
                 </div>
             </div>`;
+            questions.children[i].children[0].style.backgroundColor = `${quiz.questions[i].color}`;
+            console.log(questions.children[i]);
+            console.log(quiz.questions[i].color);
     };
     document.querySelector('.overlay_top').scrollIntoView({block: "start"});
 };
