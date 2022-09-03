@@ -185,7 +185,7 @@
                     <input class="quiz-nr-questions quiz_input" type="text" placeholder="Quantidade de perguntas do quizz">
                     <input class="quiz-nr-levels quiz_input" type="text" placeholder="Quantidades de níveis do quizz">
                 </div>
-                <button class="page3_button" onclick="createQuizz()">
+                <button class="page3_button" onclick="renderQuestionsPage()">
                     Prosseguir para criar perguntas
                 </button>
             </div>
@@ -196,7 +196,7 @@
                 </h1>
                 <div class="user_questions_box"> 
                 </div>
-                <button class="page3_button" onclick="renderLevelsPage(3)">
+                <button class="page3_button" onclick="renderLevelsPage()">
                     Prosseguir para criar níveis
                 </button>
             </div>
@@ -207,7 +207,7 @@
                 </h1>
                 <div class="user_levels_box">
                 </div>
-                <button class="page3_button">
+                <button class="page3_button" onclick="createQuizz()">
                     Finalizar Quizz
                 </button>
             </div>

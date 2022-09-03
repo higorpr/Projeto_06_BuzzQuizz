@@ -292,21 +292,23 @@ function createQuestions(nrQuestions){
                     <p>
                         Resposta correta
                     </p>
-                    <input class="answer right quiz_input" type="text" placeholder="Resposta Correta">
-                    <input class="url right quiz_input" type="text" placeholder="URL da imagem">
+                    <div class="answer right">
+                        <input class="txt quiz_input" type="text" placeholder="Resposta Correta">
+                        <input class="url right quiz_input" type="text" placeholder="URL da imagem">
+                    </div>
                     <p>
                         Respostas incorretas
                     </p>
-                    <div class="wrong-answer-1">
-                        <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 1">
+                    <div class="answer wrong">
+                        <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 1">
                         <input class="url quiz_input" type="text" placeholder="URL da imagem 1">
                     </div>
-                    <div class="wrong-answer-3">
-                        <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 2">
+                    <div class="answer wrong">
+                        <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 2">
                         <input class="url  quiz_input" type="text" placeholder="URL da imagem 2">
                     </div>
-                    <div class="wrong-answer-2">
-                        <input class="answer quiz_input" type="text" placeholder="Resposta incorreta 3">
+                    <div class="answer wrong">
+                        <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 3">
                         <input class="url  quiz_input" type="text" placeholder="URL da imagem 3">
                     </div>
                 </div>
@@ -315,7 +317,8 @@ function createQuestions(nrQuestions){
 
 }
 
-function renderQuestionsPage(nrQuestions){
+function renderQuestionsPage(){
+    let nrQuestions = document.querySelector(".quiz-nr-questions").value;
     let questionsPage = document.querySelector(".user_quiz_questions");
     questionsPage.classList.remove("hide");
     createQuestions(nrQuestions);
@@ -327,15 +330,14 @@ function renderQuestionsPage(nrQuestions){
 }
 
 function createQuizz() {
-    let title = document.querySelector(".quiz-title").value;
-    let imgUrl = document.querySelector(".quiz-img-url").value;
-    let nrQuestions = document.querySelector(".quiz-nr-questions").value;
-    let nrLevels = document.querySelector(".quiz-nr-levels").value;
-
-    renderQuestionsPage(nrQuestions);
+    let payload = createPayload();
+    // const createQuizzPromise = axios.post(url, payload);
+    // createQuizzPromise.then();
+    // createQuizzPromise.catch();
 }
 
-function renderLevelsPage(nrLevels){
+function renderLevelsPage(){
+    let nrLevels = document.querySelector(".quiz-nr-levels").value;
     let levelsPage = document.querySelector(".user_levels");
     levelsPage.classList.remove("hide");
     createLevels(nrLevels);
@@ -373,5 +375,68 @@ function editQuizzElement(element){
     element.classList.remove("docked");
     elementOpBox.classList.remove("hide");
     elementEditBtn.classList.add("hide");
+}
+
+function getQuestionsArr(){
+    let questions = document.querySelectorAll(".user_question");
+    let questionsArr = [];
+    let question;
+    console.log(questions);
+    questions.forEach(element => {
+        console.log(element);
+        question = {
+            title: element.querySelector(".question_title").value,
+            color: element.querySelector(".question_color").value,
+            answers: getAnswersArr(element)
+        }
+        console.log(getAnswersArr(element));
+        questionsArr.push(question);
+    });
+    return questionsArr;
+}
+
+function getAnswersArr(question){
+    let answerArr = [];
+    let answers = question.querySelectorAll(".answer");
+    let answer;
+    answers.forEach(element => {
+        answer = {
+            text: element.querySelector(".txt").value,
+            image: element.querySelector(".url").value,
+            isCorrectAnswer: element.classList.contains("right")
+        }
+        answerArr.push(answer);
+    })
+    return answerArr;
+}
+
+function getLevelsArr(){
+    let levelsArr = [];
+    let levels = document.querySelectorAll(".user_level");
+    let level;
+    levels.forEach(element => {
+        level = {
+            title: element.querySelector(".level_title").value,
+            image: element.querySelector(".url_image").value,
+            text: element.querySelector(".level_description").value,
+            minValue: element.querySelector(".min_percentage").value
+        }
+        levelsArr.push(level);
+    })
+    return levelsArr
+}
+
+function createPayload(){
+    let payload = {
+        title: document.querySelector(".quiz-title").value,
+        image: document.querySelector(".quiz-img-url").value,
+        questions: getQuestionsArr(),
+        levels: getLevelsArr()
+    }
+    console.log(payload);
+    return payload;
+}
+function printResponse(){
+    console.log("teste");
 }
 
