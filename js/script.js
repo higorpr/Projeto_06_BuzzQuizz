@@ -366,8 +366,12 @@ function renderQuestionsPage(currentPage){
 function createQuizz(currentPage) {
     let payload = createPayload();
     const createQuizzPromise = axios.post(url, payload);
-    createQuizzPromise.then(renderQuizzCreatedPage,currentPage);
+    createQuizzPromise.then(processResponseAndRenderPage);
     createQuizzPromise.catch();
+}
+
+function processResponseAndRenderPage(response){
+    renderQuizzCreatedPage();
 }
 
 function renderLevelsPage(currentPage){
@@ -478,7 +482,8 @@ function createPayload(){
     console.log(stringjson);
     return payload;
 }
-function renderQuizzCreatedPage(currentPage){
+function renderQuizzCreatedPage(){
+    let currentPage = document.querySelector(".user_levels");
     currentPage.classList.add("hide");
     const quizzCreatedPage = document.querySelector(".user_quiz_ready");
     quizzCreatedPage.classList.remove("hide");
