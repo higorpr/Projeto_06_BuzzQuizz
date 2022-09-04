@@ -435,12 +435,18 @@ function getAnswersArr(question){
     let answers = question.querySelectorAll(".answer");
     let answer;
     answers.forEach(element => {
-        answer = {
-            text: element.querySelector(".txt").value,
-            image: element.querySelector(".url").value,
-            isCorrectAnswer: element.classList.contains("right")
+        let answerTxt = element.querySelector(".txt").value;
+        let answerImg = element.querySelector(".url").value;
+
+        if(answerTxt.length>0 && answerImg.length>0){
+            answer = {
+                text: answerTxt,
+                image: answerImg,
+                isCorrectAnswer: element.classList.contains("right")
+            }
+            answerArr.push(answer);
+
         }
-        answerArr.push(answer);
     })
     return answerArr;
 }
@@ -468,7 +474,8 @@ function createPayload(){
         questions: getQuestionsArr(),
         levels: getLevelsArr()
     }
-    console.log(payload);
+    let stringjson = JSON.stringify(payload);
+    console.log(stringjson);
     return payload;
 }
 function renderQuizzCreatedPage(currentPage){
@@ -479,7 +486,6 @@ function renderQuizzCreatedPage(currentPage){
 //data vaidation
 function verifyBasicInfoAndLoadNext(currentPage){
     let quizzTitleTxt = currentPage.querySelector(".quiz-title").value.length;
-    console.log(quizzTitleTxt);
     let quizzImgUrl = currentPage.querySelector(".quiz-img-url").value;
     
     let quizzTitleIsOk = quizzTitleTxt>=20 && quizzTitleTxt<=65;
@@ -499,7 +505,7 @@ function verifyQuestionsAndLoadNext(currentPage){
     let questions = currentPage.querySelectorAll(".user_question");
     let questionIsOkArr=[];
 
-    questions.forEach(element =>{
+    questions.forEach(element => {
         let questionTxtIsOk = element.querySelector(".question_title").value.length>=20;
         let questionColorIsOk = isValidColor(element.querySelector(".question_color").value);
         let responsesIsOk = verifyResponses(element);
@@ -509,6 +515,7 @@ function verifyQuestionsAndLoadNext(currentPage){
         }
     })
 
+    console.log(questionIsOkArr);
     if(questionIsOkArr.length === questions.length){
         renderLevelsPage(currentPage);
     }else{
@@ -549,11 +556,13 @@ function verifyLevelsAndLoadNext(currentPage){
     let levelsIsOkArr=[];
     let levelsWith0Perc =[];
 
-    questions.forEach(element =>{
+    levels.forEach(element => {
         let levelTxtIsOk = element.querySelector(".level_title").value.length>=10;
         let levelMinPerc = parseInt(element.querySelector(".min_percentage").value);
         let levelMinPercIsOk = levelMinPerc >= 0 && levelMinPerc <= 100;
-        let levelImgIsOK = isValidUrl(element.querySelector(".url_image"));
+        console.log(element);
+        console.log(element.querySelector(".url_image").value)
+        let levelImgIsOK = isValidUrl(element.querySelector(".url_image").value);
         let levelDescrpIsOk = element.querySelector(".level_description").value.length>=30;
 
         if(levelImgIsOK && levelDescrpIsOk && levelMinPercIsOk && levelTxtIsOk){
