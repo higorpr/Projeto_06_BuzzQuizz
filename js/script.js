@@ -303,6 +303,8 @@ function restartQuiz() {
     renderQuiz(id);
 };
 
+
+//Quizz creation utilities
 function createQuestions(nrQuestions){
     let questions = document.querySelector(".user_questions_box");
 
@@ -452,7 +454,7 @@ function getLevelsArr(){
             title: element.querySelector(".level_title").value,
             image: element.querySelector(".url_image").value,
             text: element.querySelector(".level_description").value,
-            minValue: element.querySelector(".min_percentage").value
+            minValue: parseInt(element.querySelector(".min_percentage").value)
         }
         levelsArr.push(level);
     })
@@ -474,4 +476,109 @@ function renderQuizzCreatedPage(currentPage){
     const quizzCreatedPage = document.querySelector(".user_quiz_ready");
     quizzCreatedPage.classList.remove("hide");
 }
+//data vaidation
+function verifyBasicInfoAndLoadNext(currentPage){
+    let quizzTitleTxt = currentPage.querySelector(".quiz-title").value.length;
+    console.log(quizzTitleTxt);
+    let quizzImgUrl = currentPage.querySelector(".quiz-img-url").value;
+    
+    let quizzTitleIsOk = quizzTitleTxt>=20 && quizzTitleTxt<=65;
+    let quizzImgIsOk = isValidUrl(quizzImgUrl);
+    let quizzNrQuestionsIsOk = parseInt(currentPage.querySelector(".quiz-nr-questions").value)>2;
+    let quizzNrLevelsIsOk = parseInt(currentPage.querySelector(".quiz-nr-levels").value)>1;
 
+    if(quizzTitleIsOk && quizzImgIsOk && quizzNrQuestionsIsOk && quizzNrLevelsIsOk){
+        renderQuestionsPage(currentPage);
+    }else{
+        alert("Por favor, preencha os dados corretamente");
+    }
+
+}
+
+function verifyQuestionsAndLoadNext(currentPage){
+    let questions = currentPage.querySelectorAll(".user_question");
+    let questionIsOkArr=[];
+
+    questions.forEach(element =>{
+        let questionTxtIsOk = element.querySelector(".question_title").value.length>=20;
+        let questionColorIsOk = isValidColor(element.querySelector(".question_color").value);
+        let responsesIsOk = verifyResponses(element);
+
+        if(questionTxtIsOk && questionColorIsOk && responsesIsOk){
+            questionIsOkArr.push(element)
+        }
+    })
+
+    if(questionIsOkArr.length === questions.length){
+        renderLevelsPage(currentPage);
+    }else{
+        alert("Por favor, preencha os dados corretamente");
+    }
+
+}
+
+function verifyResponses(question){
+    let righResponse = question.querySelector(".right");
+    let wrongResponses = question.querySelectorAll(".wrong");
+
+    let rightResponseTxtIsOK = righResponse.querySelector(".txt").value.length>0;
+    let rightResponseImgIsOk = isValidUrl(righResponse.querySelector(".url").value);
+
+    let wrongResponsesOkArr = [];
+    let wrongFilledResponses = [];
+
+    wrongResponses.forEach(element => {
+        let wrongResponseTxtIsOk = element.querySelector(".txt").value.length>0;
+        let wrongResponseImgIsOk = isValidUrl(element.querySelector(".url").value);
+        if(wrongResponseImgIsOk || wrongResponseTxtIsOk){
+            if(wrongResponseImgIsOk && wrongResponseTxtIsOk){
+                wrongResponsesOkArr.push(element);
+            }
+            wrongFilledResponses.push(element);
+        }
+    })
+
+    let wrongResponseIsOk = (wrongResponsesOkArr.length>0) && (wrongFilledResponses.length===wrongResponsesOkArr.length);
+
+    return (rightResponseTxtIsOK && rightResponseImgIsOk && wrongResponseIsOk);
+
+}
+
+function verifyLevelsAndLoadNext(currentPage){
+    let levels = currentPage.querySelectorAll(".user_level");
+    let levelsIsOkArr=[];
+    let levelsWith0Perc =[];
+
+    questions.forEach(element =>{
+        let levelTxtIsOk = element.querySelector(".level_title").value.length>=10;
+        let levelMinPerc = parseInt(element.querySelector(".min_percentage").value);
+        let levelMinPercIsOk = levelMinPerc >= 0 && levelMinPerc <= 100;
+        let levelImgIsOK = isValidUrl(element.querySelector(".url_image"));
+        let levelDescrpIsOk = element.querySelector(".level_description").value.length>=30;
+
+        if(levelImgIsOK && levelDescrpIsOk && levelMinPercIsOk && levelTxtIsOk){
+            if(levelMinPerc===0){
+                levelsWith0Perc.push(element);
+            }
+            levelsIsOkArr.push(element);
+        }
+    })
+
+    if(levelsIsOkArr.length===levels.length && levelsWith0Perc.length>0){
+        createQuizz(currentPage);
+    }else{
+        alert("Por favor, preencha os dados corretamente");
+    }
+
+
+}
+
+function isValidUrl(url){
+    let regex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+    return regex.test(url);
+}
+
+function isValidColor(color){
+    let regex = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
+    return regex.test(color);
+}
