@@ -1,7 +1,7 @@
 const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 
 let quizzes = [];
-let quiz;
+let quiz = [];
 
 const quiz_row = document.querySelector('.quiz_row');
 const quiz_row_2 = document.querySelector('.quiz_row_2');
@@ -13,7 +13,7 @@ function renderQuizzes() {
     for (let i = 0; i < quizzes.length; i++) {
 
         quiz_row.innerHTML += `
-    <div id="${i}" onclick="showQuiz(this)" class="quiz_thumbnail">
+    <div id="${quizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail">
                     <div class="overlay"></div>
                     <img src="${quizzes[i].image}" alt="">
                     <p class="quiz_sub">
@@ -46,7 +46,7 @@ function dataArrive(response) {
 };
 
 function getData() {
-
+    quizzes = [];
     const promisse = axios.get(url);
     promisse.then(dataArrive);
 };
@@ -156,9 +156,15 @@ let id;
 
 function renderQuiz(id_element){
     id = id_element;
-    quiz = quizzes[id_element];
-    const number_questions = quiz.questions.length;    
-
+    console.log(id_element)
+    //quiz = quizzes[id_element];
+    let filter_quiz;
+    console.log(typeof(id_element));
+    filter_quiz = quizzes.filter(dev => dev.id === Number(id_element));
+    console.log("AQUIIIIIIIIII", filter_quiz);
+    quiz = filter_quiz[0];
+    console.log("AQUIIIIIIIIII 2", quiz);
+    const number_questions = quiz.questions.length;
     console.log(quiz);
     
     top_image.innerHTML += `
@@ -219,6 +225,7 @@ function showQuiz(element) {
 
 function exitQuiz() {
     page1.classList.remove('hide');
+    page3.classList.add("hide");
     //user_quizzes.classList.remove('hide');
     //all_quizzes.classList.remove('hide');    
 
@@ -235,14 +242,18 @@ function exitQuiz() {
     getData();
 };
 
+const page3 = document.querySelector('.page_3');
+
 function hide1Show3() {
-
-    const page3 = document.querySelector('.page_3');
-    const page1 = document.querySelector(".page_1")
-
     page1.classList.add("hide");
     page3.classList.remove("hide");
-}
+
+    
+    for( let i = 0; i < page3.childElementCount; i++){
+        page3.children[i].classList.add('hide');
+    }
+    document.querySelector('.start_user_quiz').classList.remove('hide');
+};
 
 function restartQuiz() {
     //Todo este código abaixo é desnecessário, pois foi feito enxuto lá no fim
@@ -369,8 +380,11 @@ function createQuizz(currentPage) {
     createQuizzPromise.then(processResponseAndRenderPage);
     createQuizzPromise.catch();
 }
+let idNewQuiz;
 
-function processResponseAndRenderPage(response){
+function processResponseAndRenderPage(response){    
+    idNewQuiz = response.data.id;
+    getData();
     renderQuizzCreatedPage();
 }
 
@@ -482,16 +496,16 @@ function createPayload(){
     console.log(stringjson);
     return payload;
 }
-function renderQuizzCreatedPage(){
-    let currentPage = document.querySelector(".user_levels");
-    currentPage.classList.add("hide");
-    const quizzCreatedPage = document.querySelector(".user_quiz_ready");
-    quizzCreatedPage.classList.remove("hide");
-}
+
+let quizzTitle
+let quizzTitleTxt;
+let quizzImgUrl
+
 //data vaidation
 function verifyBasicInfoAndLoadNext(currentPage){
-    let quizzTitleTxt = currentPage.querySelector(".quiz-title").value.length;
-    let quizzImgUrl = currentPage.querySelector(".quiz-img-url").value;
+    quizzTitle = currentPage.querySelector(".quiz-title").value;
+    quizzTitleTxt = currentPage.querySelector(".quiz-title").value.length;
+    quizzImgUrl = currentPage.querySelector(".quiz-img-url").value;
     
     let quizzTitleIsOk = quizzTitleTxt>=20 && quizzTitleTxt<=65;
     let quizzImgIsOk = isValidUrl(quizzImgUrl);
@@ -504,6 +518,42 @@ function verifyBasicInfoAndLoadNext(currentPage){
         alert("Por favor, preencha os dados corretamente");
     }
 
+}
+
+function showNewQuiz(idNewQ){
+    page3.classList.add('hide');
+    
+    top_image.classList.remove('hide');
+    quiz_content.classList.remove('hide');
+
+    
+    renderQuiz(idNewQ);
+};
+
+function renderQuizzCreatedPage(){
+    let currentPage = document.querySelector(".user_levels");
+    currentPage.classList.add("hide");
+    const quizzCreatedPage = document.querySelector(".user_quiz_ready");
+
+    quizzCreatedPage.innerHTML = `
+        <h1>
+            Seu quizz está pronto!  
+        </h1>
+        <div class="ready_image page_3" onclick="showNewQuiz(${idNewQuiz})">
+            <div class="overlay"></div>
+            <img src="${quizzImgUrl}" alt="Quiz image">
+            <p class="quiz_sub">
+                ${quizzTitle}
+            </p>
+        </div>
+        <button class="page3_button page_3" onclick="showNewQuiz(${idNewQuiz})">
+            Acessar Quizz
+        </button>
+        <button class="inv_button page_3" onclick="exitQuiz()">
+            Voltar para home
+        </button>`;
+
+    quizzCreatedPage.classList.remove("hide");
 }
 
 function verifyQuestionsAndLoadNext(currentPage){
