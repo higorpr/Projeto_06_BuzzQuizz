@@ -413,7 +413,7 @@ h1 {
     display: flex;
     flex-direction: column;
     width: 600px;
-    height: 256px;
+    min-height: 256px;
     background-color: #ffffff;
     align-items: center;
     justify-content: center;
@@ -435,6 +435,10 @@ h1 {
 
 .quiz_input::placeholder {
     color: #bababa;
+}
+
+.color-input{
+    align-items: center;
 }
 
 .user_quiz_questions, .user_levels, .user_quiz_ready {
@@ -565,6 +569,25 @@ h1 {
 
 .wrong_answer, .right_answer {
     word-break: break-word;
+}
+
+
+input.invalid{
+    background-color: #FFE9E9;
+}
+
+span.validation-error{
+    display: none;
+    color:#EC362D;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    margin-top: 3px;
+    margin-bottom: 8px;
+}
+
+span.visible{
+    display: block;
 }
 
 .hide {

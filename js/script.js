@@ -340,31 +340,31 @@ function createQuestions(nrQuestions) {
                     <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)" data-identifier="expand">
                 </div>
                 <div class="hiden_docked hide">
-                    <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta">
-                    <input class="question_color quiz_input" type="text" placeholder="Cor de fundo da pergunta">
+                    <div><input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta"><span class="validation-error">O texto deve ter no mínimo 20 caracteres</span></div>
+                    <div><input class="question_color quiz_input" type="color" name ="color" placeholder="Cor de fundo da pergunta"><span class="validation-error">A cor deve ser um código válido do tipo #XXXXXX</span></div>
                     <p>
                         Resposta correta
                     </p>
                     <div class="answer right">
-                        <input class="txt quiz_input" type="text" placeholder="Resposta Correta">
-                        <input class="url right quiz_input" type="text" placeholder="URL da imagem">
+                        <div><input class="txt quiz_input" type="text" placeholder="Resposta Correta"><span class="validation-error">O texto não pode estar vazio</span></div>
+                        <div><input class="url right quiz_input" type="text" placeholder="URL da imagem"><span class="validation-error">O texto não é uma URL válida</span></div>
                     </div>
                     <p>
                         Respostas incorretas
                     </p>
                     <div class="answer wrong">
-                        <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 1">
-                        <input class="url quiz_input" type="text" placeholder="URL da imagem 1">
+                        <div><input class="txt quiz_input" type="text" placeholder="Resposta incorreta 1"><span class="validation-error">O texto não pode estar vazio</span></div>
+                        <div><input class="url quiz_input" type="text" placeholder="URL da imagem 1"><span class="validation-error">O texto não é uma URL válida</span></div>
                     </div>
                     <div class="blank_page3"></div>
                     <div class="answer wrong">
-                        <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 2">
-                        <input class="url  quiz_input" type="text" placeholder="URL da imagem 2">
+                        <div><input class="txt quiz_input" type="text" placeholder="Resposta incorreta 2"><span class="validation-error">O texto não pode estar vazio</span></div>
+                        <div><input class="url  quiz_input" type="text" placeholder="URL da imagem 2"><span class="validation-error">O texto não é uma URL válida</span></div>
                     </div>
                     <div class="blank_page3"></div>
                     <div class="answer wrong">
-                        <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 3">
-                        <input class="url  quiz_input" type="text" placeholder="URL da imagem 3">
+                        <div><input class="txt quiz_input" type="text" placeholder="Resposta incorreta 3"><span class="validation-error">O texto não pode estar vazio</span></div>
+                        <div><input class="url  quiz_input" type="text" placeholder="URL da imagem 3"><span class="validation-error">O texto não é uma URL válida</span></div>
                     </div>
                 </div>
             </div>`;
@@ -419,6 +419,8 @@ function storeIdLocally(id) {
     idsArr.push(id);
     strIds = JSON.stringify(idsArr);
     localStorage.setItem('ids', strIds);
+    console.log('Array of ids:', idsArr)
+    console.log('Stringfied array:', strIds)
     // console.log('Array of ids:', idsArr)
     // console.log('Stringfied array:', strIds)
 }
@@ -448,10 +450,10 @@ function createLevels(nrLevels) {
                 <img class='edit_icon' src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)" data-identifier="expand">
             </div>
             <div class="hiden_docked hide">
-                <input class="level_title quiz_input" type="text" placeholder="Título do Nível">
-                <input class="min_percentage quiz_input" type="text" placeholder="% de acerto mínima">
-                <input class="url_image quiz_input" type="text" placeholder="URL da imagem do nível">
-                <input class="level_description quiz_input" type="text" placeholder="Descrição do nível">
+                <div><input class="level_title quiz_input" type="text" placeholder="Título do Nível"><span class="validation-error">O texto deve ter no mínimo 10 caracteres</span></div>
+                <div><input class="min_percentage quiz_input" type="text" placeholder="% de acerto mínima"><span class="validation-error">Deve ser um número entre 0 e 100</span></div>
+                <div><input class="url_image quiz_input" type="text" placeholder="URL da imagem do nível"><span class="validation-error">O texto não é uma URL válida</span></div>
+                <div><input class="level_description quiz_input" type="text" placeholder="Descrição do nível"><span class="validation-error">A descrição deve ter no mínimo 30 caracteres</span></div>
             </div>
         </div>`;
     }
@@ -542,10 +544,15 @@ function verifyBasicInfoAndLoadNext(currentPage) {
     quizzTitleTxt = currentPage.querySelector(".quiz-title").value.length;
     quizzImgUrl = currentPage.querySelector(".quiz-img-url").value;
 
-    let quizzTitleIsOk = quizzTitleTxt >= 20 && quizzTitleTxt <= 65;
-    let quizzImgIsOk = isValidUrl(quizzImgUrl);
-    let quizzNrQuestionsIsOk = parseInt(currentPage.querySelector(".quiz-nr-questions").value) > 2;
-    let quizzNrLevelsIsOk = parseInt(currentPage.querySelector(".quiz-nr-levels").value) > 1;
+    // let quizzTitleIsOk = quizzTitleTxt >= 20 && quizzTitleTxt <= 65;
+    // let quizzImgIsOk = isValidUrl(quizzImgUrl);
+    // let quizzNrQuestionsIsOk = parseInt(currentPage.querySelector(".quiz-nr-questions").value) > 2;
+    // let quizzNrLevelsIsOk = parseInt(currentPage.querySelector(".quiz-nr-levels").value) > 1;
+
+    let quizzTitleIsOk = isValidQuizzTitle(currentPage.querySelector(".quiz-title"));
+    let quizzImgIsOk = isValidUrl(currentPage.querySelector(".quiz-img-url"));
+    let quizzNrQuestionsIsOk = isValidNrQuestions(currentPage.querySelector(".quiz-nr-questions"));
+    let quizzNrLevelsIsOk = isValidNrLevels(currentPage.querySelector(".quiz-nr-levels"));
 
     if (quizzTitleIsOk && quizzImgIsOk && quizzNrQuestionsIsOk && quizzNrLevelsIsOk) {
         renderQuestionsPage(currentPage);
@@ -595,9 +602,19 @@ function verifyQuestionsAndLoadNext(currentPage) {
     let questions = currentPage.querySelectorAll(".user_question");
     let questionIsOkArr = [];
 
+    // questions.forEach(element => {
+    //     let questionTxtIsOk = element.querySelector(".question_title").value.length >= 20;
+    //     let questionColorIsOk = isValidColor(element.querySelector(".question_color").value);
+    //     let responsesIsOk = verifyResponses(element);
+
+    //     if (questionTxtIsOk && questionColorIsOk && responsesIsOk) {
+    //         questionIsOkArr.push(element)
+    //     }
+    // })
+
     questions.forEach(element => {
-        let questionTxtIsOk = element.querySelector(".question_title").value.length >= 20;
-        let questionColorIsOk = isValidColor(element.querySelector(".question_color").value);
+        let questionTxtIsOk = isValidQuestionTitle(element.querySelector(".question_title"));
+        let questionColorIsOk = isValidColor(element.querySelector(".question_color"));
         let responsesIsOk = verifyResponses(element);
 
         if (questionTxtIsOk && questionColorIsOk && responsesIsOk) {
@@ -618,15 +635,32 @@ function verifyResponses(question) {
     let righResponse = question.querySelector(".right");
     let wrongResponses = question.querySelectorAll(".wrong");
 
-    let rightResponseTxtIsOK = righResponse.querySelector(".txt").value.length > 0;
-    let rightResponseImgIsOk = isValidUrl(righResponse.querySelector(".url").value);
+    // let rightResponseTxtIsOK = righResponse.querySelector(".txt").value.length > 0;
+    // let rightResponseImgIsOk = isValidUrl(righResponse.querySelector(".url").value);
+
+    // let wrongResponsesOkArr = [];
+    // let wrongFilledResponses = [];
+
+    // wrongResponses.forEach(element => {
+    //     let wrongResponseTxtIsOk = element.querySelector(".txt").value.length > 0;
+    //     let wrongResponseImgIsOk = isValidUrl(element.querySelector(".url").value);
+    //     if (wrongResponseImgIsOk || wrongResponseTxtIsOk) {
+    //         if (wrongResponseImgIsOk && wrongResponseTxtIsOk) {
+    //             wrongResponsesOkArr.push(element);
+    //         }
+    //         wrongFilledResponses.push(element);
+    //     }
+    // })
+
+    let rightResponseTxtIsOK = isValidText(righResponse.querySelector(".txt"));
+    let rightResponseImgIsOk = isValidUrl(righResponse.querySelector(".url"));
 
     let wrongResponsesOkArr = [];
     let wrongFilledResponses = [];
 
     wrongResponses.forEach(element => {
-        let wrongResponseTxtIsOk = element.querySelector(".txt").value.length > 0;
-        let wrongResponseImgIsOk = isValidUrl(element.querySelector(".url").value);
+        let wrongResponseTxtIsOk = isValidText(element.querySelector(".txt"));
+        let wrongResponseImgIsOk = isValidUrl(element.querySelector(".url"));
         if (wrongResponseImgIsOk || wrongResponseTxtIsOk) {
             if (wrongResponseImgIsOk && wrongResponseTxtIsOk) {
                 wrongResponsesOkArr.push(element);
@@ -646,14 +680,31 @@ function verifyLevelsAndLoadNext(currentPage) {
     let levelsIsOkArr = [];
     let levelsWith0Perc = [];
 
+    // levels.forEach(element => {
+    //     let levelTxtIsOk = element.querySelector(".level_title").value.length >= 10;
+    //     let levelMinPerc = parseInt(element.querySelector(".min_percentage").value);
+    //     let levelMinPercIsOk = levelMinPerc >= 0 && levelMinPerc <= 100;
+    //     console.log(element);
+    //     console.log(element.querySelector(".url_image").value)
+    //     let levelImgIsOK = isValidUrl(element.querySelector(".url_image").value);
+    //     let levelDescrpIsOk = element.querySelector(".level_description").value.length >= 30;
+
+    //     if (levelImgIsOK && levelDescrpIsOk && levelMinPercIsOk && levelTxtIsOk) {
+    //         if (levelMinPerc === 0) {
+    //             levelsWith0Perc.push(element);
+    //         }
+    //         levelsIsOkArr.push(element);
+    //     }
+    // })
+
     levels.forEach(element => {
-        let levelTxtIsOk = element.querySelector(".level_title").value.length >= 10;
+        let levelTxtIsOk = isValidLevelTitle(element.querySelector(".level_title"));
         let levelMinPerc = parseInt(element.querySelector(".min_percentage").value);
-        let levelMinPercIsOk = levelMinPerc >= 0 && levelMinPerc <= 100;
+        let levelMinPercIsOk = isValidPerc(element.querySelector(".min_percentage"));
         console.log(element);
         console.log(element.querySelector(".url_image").value)
-        let levelImgIsOK = isValidUrl(element.querySelector(".url_image").value);
-        let levelDescrpIsOk = element.querySelector(".level_description").value.length >= 30;
+        let levelImgIsOK = isValidUrl(element.querySelector(".url_image"));
+        let levelDescrpIsOk = isValidLevelDescrp(element.querySelector(".level_description"));
 
         if (levelImgIsOK && levelDescrpIsOk && levelMinPercIsOk && levelTxtIsOk) {
             if (levelMinPerc === 0) {
@@ -671,18 +722,143 @@ function verifyLevelsAndLoadNext(currentPage) {
 
 }
 
-function isValidUrl(url) {
+function isValidUrl(elem) {
+    let container = elem.parentNode;
+    let url = elem.value;
     let regex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
-    return regex.test(url);
+    if(regex.test(url)){
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
 }
 
-function isValidColor(color) {
+function isValidColor(elem) {
+    let container = elem.parentNode;
+    let color = elem.value;
     let regex = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
-    return regex.test(color);
+    if(regex.test(color)){
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
 }
+
 
 function getUserQuizzes() {
     return JSON.parse(localStorage.getItem('ids'));
+}
+
+function isValidLevelTitle(elem) {
+    let container = elem.parentNode;
+    if (elem.value.length >= 10) {
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
+}
+
+function isValidQuestionTitle(elem) {
+    let container = elem.parentNode;
+    if (elem.value.length >= 20) {
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
+}
+
+function isValidQuizzTitle(elem) {
+    let container = elem.parentNode;
+    if (elem.value.length >= 20 && elem.value.length <= 65) {
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
+}
+
+function isValidLevelDescrp(elem) {
+    let container = elem.parentNode;
+    if (elem.value.length >= 30) {
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
+}
+
+function isValidPerc(elem) {
+    let container = elem.parentNode;
+    if (parseInt(elem.value) >= 0 && parseInt(elem.value) <= 100) {
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
+}
+
+function isValidNrQuestions(elem) {
+    let container = elem.parentNode;
+    if (parseInt(elem.value) >= 3) {
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
+}
+
+function isValidNrLevels(elem) {
+    let container = elem.parentNode;
+    if (parseInt(elem.value) >= 2) {
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
+}
+
+function isValidText(elem) {
+    let container = elem.parentNode;
+    if (elem.value.length > 0) {
+        container.querySelector(".validation-error").classList.remove("visible");
+        elem.classList.remove("invalid");
+        return true;
+    }else{
+        container.querySelector(".validation-error").classList.add("visible");
+        elem.classList.add("invalid");
+        return false;
+    }
 }
 
 userIds = getUserQuizzes();
