@@ -21,7 +21,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 3;
+    z-index: 5;
 }
 
 header p {
@@ -31,6 +31,10 @@ header p {
     font-size: 37px;
     font-family: 'Roboto', sans-serif;
     color: #ffffff;
+}
+
+header p:hover {
+    cursor: pointer;
 }
 
 main {
@@ -208,6 +212,10 @@ h1 {
 }
 .edit_delet_quiz ion-icon:hover{
     cursor: pointer;
+}
+
+.go_to_top {
+    height: 0.01px;
 }
 
 .top_image {
@@ -702,7 +710,7 @@ span.label-color-input{
 
     .question_head {
         width: 340px;
-        height: 89px;
+        height: auto;
         justify-content: center;
         align-items: center;
     }
@@ -723,7 +731,7 @@ span.label-color-input{
 
     .quiz_result {
         width: 375px;
-        height: 500px;
+        height: auto;
     }
 
     .result_perc {
