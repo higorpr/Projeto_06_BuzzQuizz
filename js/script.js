@@ -679,7 +679,11 @@ function getUserQuizzes() {
 
 function renderUserQuizzes(data) {
     /**
+     * This function renders the user quizzes (or not, if they do not exist on the API)
+     * on Page 1.
      * 
+     * Input:
+     *  - data: array of user quizz objects coming from the API.
      */
     const userIds = getUserQuizzes();
     const userQuizzes = data.filter(obj => userIds.includes(obj.id));
@@ -690,7 +694,7 @@ function renderUserQuizzes(data) {
     emptyBox.innerHTML = '';
 
     if (userQuizzes.length !== 0) {
-        emptyBox.classList.add('hide')
+        emptyBox.classList.add('hide');
         for (let i = 0; i < userQuizzes.length; i++) {
             userBox.innerHTML +=
                 `
@@ -701,9 +705,10 @@ function renderUserQuizzes(data) {
                         ${userQuizzes[i].title}
                     </p>
                 </div>
-        `
+        `;
         }
     } else {
+        userBox.classList.add('hide');
         emptyBox.innerHTML = 
         `
         <div class="empty_quizzes page_1">
@@ -714,7 +719,7 @@ function renderUserQuizzes(data) {
                     Criar quizz
                 </button>
             </div>
-        `
+        `;
     }
 
 
