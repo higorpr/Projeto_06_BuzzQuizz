@@ -90,14 +90,14 @@
         <!-- Ending Page 1 -->
 
         <!-- Beginnnig Page 2 -->
-        <div class="top_image page_2">
+        <div class="top_image page_2 hide">
             <div class="overlay_top"></div>
             <img src="images/deboas_thumbnail.png" alt="">
             <p>
                 Quiz do de boas. Vc é de boas?
             </p>
         </div>
-        <div class="quiz_content page_2">
+        <div class="quiz_content hide page_2">
             <div class="questions">
                 <div class="quiz_question">
                     <div class="question_head teal">
@@ -170,7 +170,7 @@
                 </div>
             </div>
 
-            <div class="quiz_result" data-identifier="quizz-result">
+            <div class="quiz_result hide" data-identifier="quizz-result">
                 <div class="result_perc">
                     <p>
                         88% de acerto: Você é praticamente um aluno de Hogwarts!
@@ -197,9 +197,9 @@
         <!-- Ending Page 2 -->
 
         <!-- Beginning Page 3 -->
-        <div class="create_page page_3 hide">
+        <div class="create_page page_3">
 
-            <div class="start_user_quiz">
+            <div class="start_user_quiz hide">
                 <h1>
                     Comece pelo começo
                 </h1>
@@ -283,13 +283,28 @@
                             <input class="level_description quiz_input" type="text" placeholder="Descrição do nível">
                         </div>
                     </div>
+                    <div class="user_level l1">
+                        <div class="user_level_title_box docked">
+                            <p>
+                                Nível 1
+                            </p>
+                            <img class='edit_icon' src="images/edit_icon.png" alt=""
+                                onclick="editQuizzElement(this.parentNode.parentNode)">
+                        </div>
+                        <div class="hiden_docked hide">
+                            <input class="level_title quiz_input" type="text" placeholder="Título do Nível">
+                            <input class="min_percentage quiz_input" type="text" placeholder="% de acerto mínima">
+                            <input class="url_image quiz_input" type="text" placeholder="URL da imagem do nível">
+                            <input class="level_description quiz_input" type="text" placeholder="Descrição do nível">
+                        </div>
+                    </div>
                 </div>
                 <button class="page3_button" onclick="verifyLevelsAndLoadNext(this.parentNode)">
                     Finalizar Quizz
                 </button>
             </div>
 
-            <div class="user_quiz_ready hide">
+            <div class="user_quiz_ready">
                 <h1>
                     Seu quizz está pronto!
                 </h1>

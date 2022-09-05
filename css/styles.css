@@ -666,4 +666,46 @@ h1 {
     .home {
         font-size: 18px;
     }
+
+    .create_page h1 {
+        font-size: 20px;
+        margin: 39px 0 27px 0;
+    }
+
+    .quiz_general {
+        width: 375px;
+    }
+    
+    .quiz_input {
+        width: 341px;
+        text-indent: 14px;
+    }
+
+    .page3_button {
+        width: 325px;
+        font-size: 18px;
+        margin-top: 29px;
+    }
+
+    .user_question, .user_level {
+        width: 375px;
+    }
+
+    .ready_image {
+        margin-top: 0px;
+    }
+    
+    .ready_image img {
+        width: 340px;
+        height: 181px;
+    }
+    
+    .user_quiz_ready .page3_button {
+        margin: 24px 0 9px 0px;
+    }
+
+    .inv_button {
+        font-size: 18px;
+    }
+
 }
