@@ -195,6 +195,42 @@
                     Crie suas perguntas
                 </h1>
                 <div class="user_questions_box"> 
+                    <div class="user_question q1 docked">
+                        <div class="user_question_title_box">
+                            <p>
+                                Pergunta 1
+                            </p>
+                            <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)">
+                        </div>
+                        <div class="hiden_docked hide">
+                            <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta">
+                            <input class="question_color quiz_input" type="text" placeholder="Cor de fundo da pergunta">
+                            <p>
+                                Resposta correta
+                            </p>
+                            <div class="answer right">
+                                <input class="txt quiz_input" type="text" placeholder="Resposta Correta">
+                                <input class="url right quiz_input" type="text" placeholder="URL da imagem">
+                            </div>
+                            <p>
+                                Respostas incorretas
+                            </p>
+                            <div class="answer wrong">
+                                <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 1">
+                                <input class="url quiz_input" type="text" placeholder="URL da imagem 1">
+                            </div>
+                            <div class="blank_page3"></div>
+                            <div class="answer wrong">
+                                <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 2">
+                                <input class="url  quiz_input" type="text" placeholder="URL da imagem 2">
+                            </div>
+                            <div class="blank_page3"></div>
+                            <div class="answer wrong">
+                                <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 3">
+                                <input class="url  quiz_input" type="text" placeholder="URL da imagem 3">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button class="page3_button" onclick="verifyQuestionsAndLoadNext(this.parentNode)">
                     Prosseguir para criar níveis
@@ -206,6 +242,20 @@
                     Agora, decida os níveis
                 </h1>
                 <div class="user_levels_box">
+                    <div class="user_level l1">
+                        <div class="user_level_title_box docked">
+                            <p>
+                                Nível 1
+                            </p>
+                            <img class='edit_icon' src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)">
+                        </div>
+                        <div class="hiden_docked hide">
+                            <input class="level_title quiz_input" type="text" placeholder="Título do Nível">
+                            <input class="min_percentage quiz_input" type="text" placeholder="% de acerto mínima">
+                            <input class="url_image quiz_input" type="text" placeholder="URL da imagem do nível">
+                            <input class="level_description quiz_input" type="text" placeholder="Descrição do nível">
+                        </div>
+                    </div>
                 </div>
                 <button class="page3_button" onclick="verifyLevelsAndLoadNext(this.parentNode)">
                     Finalizar Quizz

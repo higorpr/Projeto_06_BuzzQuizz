@@ -154,13 +154,13 @@ const quiz_content = document.querySelector('.quiz_content.page_2');
 
 let id;
 
-function renderQuiz(id_element){
+function renderQuiz(id_element) {
     id = id_element;
     quiz = quizzes[id_element];
-    const number_questions = quiz.questions.length;    
+    const number_questions = quiz.questions.length;
 
     console.log(quiz);
-    
+
     top_image.innerHTML += `
     <div class="overlay_top"></div>
             <img src="${quiz.image}" alt="">
@@ -231,7 +231,7 @@ function exitQuiz() {
 
     hits = 0;
     quiz = [];
-    
+
     getData();
 };
 
@@ -305,7 +305,7 @@ function restartQuiz() {
 
 
 //Quizz creation utilities
-function createQuestions(nrQuestions){
+function createQuestions(nrQuestions) {
     let questions = document.querySelector(".user_questions_box");
 
     questions.innerHTML = "";
@@ -336,10 +336,12 @@ function createQuestions(nrQuestions){
                         <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 1">
                         <input class="url quiz_input" type="text" placeholder="URL da imagem 1">
                     </div>
+                    <div class="blank_page3"></div>
                     <div class="answer wrong">
                         <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 2">
                         <input class="url  quiz_input" type="text" placeholder="URL da imagem 2">
                     </div>
+                    <div class="blank_page3"></div>
                     <div class="answer wrong">
                         <input class="txt quiz_input" type="text" placeholder="Resposta incorreta 3">
                         <input class="url  quiz_input" type="text" placeholder="URL da imagem 3">
@@ -350,7 +352,7 @@ function createQuestions(nrQuestions){
 
 }
 
-function renderQuestionsPage(currentPage){
+function renderQuestionsPage(currentPage) {
     currentPage.classList.add("hide");
     let nrQuestions = document.querySelector(".quiz-nr-questions").value;
     let questionsPage = document.querySelector(".user_quiz_questions");
@@ -370,11 +372,35 @@ function createQuizz(currentPage) {
     createQuizzPromise.catch();
 }
 
-function processResponseAndRenderPage(response){
+function processResponseAndRenderPage(response) {
+    storeIdLocally(response.data.id);
     renderQuizzCreatedPage();
 }
 
-function renderLevelsPage(currentPage){
+function storeIdLocally(id) {
+    /**
+     * This function locally stores the id for the created quiz.
+     * 
+     * Inputs:
+     *  - id: quiz id returned by the API after posting the user quiz.
+     */
+    console.log(id)
+    let strIds = localStorage.getItem('ids');
+    console.log(strIds);
+    let idsArr = JSON.parse(strIds);
+    if (idsArr === null) {
+        idsArr = [];
+    }
+
+
+    idsArr.push(id);
+    strIds = JSON.stringify(idsArr);
+    localStorage.setItem('ids',strIds);
+    console.log('Array of ids:', idsArr)
+    console.log('Stringfied array:', strIds)
+}
+
+function renderLevelsPage(currentPage) {
     currentPage.classList.add("hide");
     let nrLevels = document.querySelector(".quiz-nr-levels").value;
     let levelsPage = document.querySelector(".user_levels");
@@ -386,12 +412,12 @@ function renderLevelsPage(currentPage){
     editQuizzElement(firstLevel);
 }
 
-function createLevels(nrLevels){
+function createLevels(nrLevels) {
     const levelsContainer = document.querySelector(".user_levels_box");
     levelsContainer.innerHTML = "";
-    for(let i=1; i<=nrLevels;i++){
-        levelsContainer.innerHTML += 
-        `<div class="user_level l${i}">
+    for (let i = 1; i <= nrLevels; i++) {
+        levelsContainer.innerHTML +=
+            `<div class="user_level l${i}">
             <div class="user_level_title_box docked">
                 <p>
                     Nível ${i}
@@ -408,7 +434,7 @@ function createLevels(nrLevels){
     }
 }
 
-function editQuizzElement(element){
+function editQuizzElement(element) {
     let elementOpBox = element.querySelector(".hiden_docked");
     let elementEditBtn = element.querySelector(".edit_icon");
     element.classList.remove("docked");
@@ -416,7 +442,7 @@ function editQuizzElement(element){
     elementEditBtn.classList.add("hide");
 }
 
-function getQuestionsArr(){
+function getQuestionsArr() {
     let questions = document.querySelectorAll(".user_question");
     let questionsArr = [];
     let question;
@@ -434,7 +460,7 @@ function getQuestionsArr(){
     return questionsArr;
 }
 
-function getAnswersArr(question){
+function getAnswersArr(question) {
     let answerArr = [];
     let answers = question.querySelectorAll(".answer");
     let answer;
@@ -442,7 +468,7 @@ function getAnswersArr(question){
         let answerTxt = element.querySelector(".txt").value;
         let answerImg = element.querySelector(".url").value;
 
-        if(answerTxt.length>0 && answerImg.length>0){
+        if (answerTxt.length > 0 && answerImg.length > 0) {
             answer = {
                 text: answerTxt,
                 image: answerImg,
@@ -455,7 +481,7 @@ function getAnswersArr(question){
     return answerArr;
 }
 
-function getLevelsArr(){
+function getLevelsArr() {
     let levelsArr = [];
     let levels = document.querySelectorAll(".user_level");
     let level;
@@ -471,7 +497,7 @@ function getLevelsArr(){
     return levelsArr
 }
 
-function createPayload(){
+function createPayload() {
     let payload = {
         title: document.querySelector(".quiz-title").value,
         image: document.querySelector(".quiz-img-url").value,
@@ -482,117 +508,117 @@ function createPayload(){
     console.log(stringjson);
     return payload;
 }
-function renderQuizzCreatedPage(){
+function renderQuizzCreatedPage() {
     let currentPage = document.querySelector(".user_levels");
     currentPage.classList.add("hide");
     const quizzCreatedPage = document.querySelector(".user_quiz_ready");
     quizzCreatedPage.classList.remove("hide");
 }
 //data vaidation
-function verifyBasicInfoAndLoadNext(currentPage){
+function verifyBasicInfoAndLoadNext(currentPage) {
     let quizzTitleTxt = currentPage.querySelector(".quiz-title").value.length;
     let quizzImgUrl = currentPage.querySelector(".quiz-img-url").value;
-    
-    let quizzTitleIsOk = quizzTitleTxt>=20 && quizzTitleTxt<=65;
-    let quizzImgIsOk = isValidUrl(quizzImgUrl);
-    let quizzNrQuestionsIsOk = parseInt(currentPage.querySelector(".quiz-nr-questions").value)>2;
-    let quizzNrLevelsIsOk = parseInt(currentPage.querySelector(".quiz-nr-levels").value)>1;
 
-    if(quizzTitleIsOk && quizzImgIsOk && quizzNrQuestionsIsOk && quizzNrLevelsIsOk){
+    let quizzTitleIsOk = quizzTitleTxt >= 20 && quizzTitleTxt <= 65;
+    let quizzImgIsOk = isValidUrl(quizzImgUrl);
+    let quizzNrQuestionsIsOk = parseInt(currentPage.querySelector(".quiz-nr-questions").value) > 2;
+    let quizzNrLevelsIsOk = parseInt(currentPage.querySelector(".quiz-nr-levels").value) > 1;
+
+    if (quizzTitleIsOk && quizzImgIsOk && quizzNrQuestionsIsOk && quizzNrLevelsIsOk) {
         renderQuestionsPage(currentPage);
-    }else{
+    } else {
         alert("Por favor, preencha os dados corretamente");
     }
 
 }
 
-function verifyQuestionsAndLoadNext(currentPage){
+function verifyQuestionsAndLoadNext(currentPage) {
     let questions = currentPage.querySelectorAll(".user_question");
-    let questionIsOkArr=[];
+    let questionIsOkArr = [];
 
     questions.forEach(element => {
-        let questionTxtIsOk = element.querySelector(".question_title").value.length>=20;
+        let questionTxtIsOk = element.querySelector(".question_title").value.length >= 20;
         let questionColorIsOk = isValidColor(element.querySelector(".question_color").value);
         let responsesIsOk = verifyResponses(element);
 
-        if(questionTxtIsOk && questionColorIsOk && responsesIsOk){
+        if (questionTxtIsOk && questionColorIsOk && responsesIsOk) {
             questionIsOkArr.push(element)
         }
     })
 
     console.log(questionIsOkArr);
-    if(questionIsOkArr.length === questions.length){
+    if (questionIsOkArr.length === questions.length) {
         renderLevelsPage(currentPage);
-    }else{
+    } else {
         alert("Por favor, preencha os dados corretamente");
     }
 
 }
 
-function verifyResponses(question){
+function verifyResponses(question) {
     let righResponse = question.querySelector(".right");
     let wrongResponses = question.querySelectorAll(".wrong");
 
-    let rightResponseTxtIsOK = righResponse.querySelector(".txt").value.length>0;
+    let rightResponseTxtIsOK = righResponse.querySelector(".txt").value.length > 0;
     let rightResponseImgIsOk = isValidUrl(righResponse.querySelector(".url").value);
 
     let wrongResponsesOkArr = [];
     let wrongFilledResponses = [];
 
     wrongResponses.forEach(element => {
-        let wrongResponseTxtIsOk = element.querySelector(".txt").value.length>0;
+        let wrongResponseTxtIsOk = element.querySelector(".txt").value.length > 0;
         let wrongResponseImgIsOk = isValidUrl(element.querySelector(".url").value);
-        if(wrongResponseImgIsOk || wrongResponseTxtIsOk){
-            if(wrongResponseImgIsOk && wrongResponseTxtIsOk){
+        if (wrongResponseImgIsOk || wrongResponseTxtIsOk) {
+            if (wrongResponseImgIsOk && wrongResponseTxtIsOk) {
                 wrongResponsesOkArr.push(element);
             }
             wrongFilledResponses.push(element);
         }
     })
 
-    let wrongResponseIsOk = (wrongResponsesOkArr.length>0) && (wrongFilledResponses.length===wrongResponsesOkArr.length);
+    let wrongResponseIsOk = (wrongResponsesOkArr.length > 0) && (wrongFilledResponses.length === wrongResponsesOkArr.length);
 
     return (rightResponseTxtIsOK && rightResponseImgIsOk && wrongResponseIsOk);
 
 }
 
-function verifyLevelsAndLoadNext(currentPage){
+function verifyLevelsAndLoadNext(currentPage) {
     let levels = currentPage.querySelectorAll(".user_level");
-    let levelsIsOkArr=[];
-    let levelsWith0Perc =[];
+    let levelsIsOkArr = [];
+    let levelsWith0Perc = [];
 
     levels.forEach(element => {
-        let levelTxtIsOk = element.querySelector(".level_title").value.length>=10;
+        let levelTxtIsOk = element.querySelector(".level_title").value.length >= 10;
         let levelMinPerc = parseInt(element.querySelector(".min_percentage").value);
         let levelMinPercIsOk = levelMinPerc >= 0 && levelMinPerc <= 100;
         console.log(element);
         console.log(element.querySelector(".url_image").value)
         let levelImgIsOK = isValidUrl(element.querySelector(".url_image").value);
-        let levelDescrpIsOk = element.querySelector(".level_description").value.length>=30;
+        let levelDescrpIsOk = element.querySelector(".level_description").value.length >= 30;
 
-        if(levelImgIsOK && levelDescrpIsOk && levelMinPercIsOk && levelTxtIsOk){
-            if(levelMinPerc===0){
+        if (levelImgIsOK && levelDescrpIsOk && levelMinPercIsOk && levelTxtIsOk) {
+            if (levelMinPerc === 0) {
                 levelsWith0Perc.push(element);
             }
             levelsIsOkArr.push(element);
         }
     })
 
-    if(levelsIsOkArr.length===levels.length && levelsWith0Perc.length>0){
+    if (levelsIsOkArr.length === levels.length && levelsWith0Perc.length > 0) {
         createQuizz(currentPage);
-    }else{
+    } else {
         alert("Por favor, preencha os dados corretamente");
     }
 
 
 }
 
-function isValidUrl(url){
+function isValidUrl(url) {
     let regex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
     return regex.test(url);
 }
 
-function isValidColor(color){
+function isValidColor(color) {
     let regex = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
     return regex.test(color);
 }
