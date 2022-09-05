@@ -2,6 +2,7 @@ const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 
 let quizzes = [];
 let quiz = [];
+let userIds = [];
 
 const quiz_row = document.querySelector('.quiz_row');
 const quiz_row_2 = document.querySelector('.quiz_row_2');
@@ -13,7 +14,7 @@ function renderQuizzes() {
     for (let i = 0; i < quizzes.length; i++) {
 
         quiz_row.innerHTML += `
-    <div id="${quizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail">
+    <div id="${quizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail" data-identifier="quizz-card">
                     <div class="overlay"></div>
                     <img src="${quizzes[i].image}" alt="">
                     <p class="quiz_sub">
@@ -21,24 +22,38 @@ function renderQuizzes() {
                     </p>
                 </div>
     `;
+<<<<<<< HEAD
         for (let n = 0; n < userIds.length; n++) {
             if (userIds[n] === quizzes[i].id) {
                 document.getElementById(quizzes[i].id).remove();
+=======
+        if (userIds !== null) {
+            for (let n = 0; n < userIds.length; n++) {
+                if (userIds[n] === quizzes[i].id) {
+                    document.getElementById(quizzes[i].id).remove();
+                };
+>>>>>>> f6942a5057cc1209b3c186e735fa4a483e7ac747
             };
-        };
+        }
     };
-    userIds = getUserQuizzes()
+    userIds = getUserQuizzes();
+};
+
+function getData() {
+    quizzes = [];
+    const promisse = axios.get(url);
+    promisse.then(dataArrive);
 };
 
 function dataArrive(response) {
 
-    // resposta completa
-    console.log("Resposta completa do get", response);
+    // // resposta completa
+    // console.log("Resposta completa do get", response);
 
-    // pegar apenas a lista com os dados dos quizzes
-    console.log("resposta.data do get", response.data);
+    // // pegar apenas a lista com os dados dos quizzes
+    // console.log("resposta.data do get", response.data);
 
-    console.log(response.data[0]);
+    // console.log(response.data[0]);
 
     // etapa 4: processar a resposta e mostrar na tela (renderizar)
 
@@ -49,14 +64,8 @@ function dataArrive(response) {
     console.log(quizzes);
 
     renderQuizzes();
-};
-
-function getData() {
-    quizzes = [];
-    const promisse = axios.get(url);
-    promisse.then(dataArrive);
-};
-getData();
+    renderUserQuizzes(response.data);
+}
 
 function comparator() {
     return Math.random() - 0.5;
@@ -183,7 +192,7 @@ function renderQuiz(id_element) {
 
         for (let n = 0; n < number_answers; n++) {
             question_options += `
-            <div class="option" onclick="selectAnswer(this)">
+            <div class="option" onclick="selectAnswer(this)" data-identifier="answer">
                 <div></div>
                 <img src="${quiz.questions[i].answers[n].image}" alt="">
                 <p class="${quiz.questions[i].answers[n].isCorrectAnswer}_answer">
@@ -193,7 +202,7 @@ function renderQuiz(id_element) {
             `
         };
         questions.innerHTML += `
-        <div class="quiz_question">
+        <div class="quiz_question" data-identifier="question">
                 <div class="question_head">
                     <p>
                         ${quiz.questions[i].title}
@@ -210,7 +219,7 @@ function renderQuiz(id_element) {
     document.querySelector('.overlay_top').scrollIntoView({ block: "start" });
 };
 
-const page1 = document.querySelector('.page_1');
+const page1 = document.querySelector('.pagina1');
 
 function showQuiz(element) {
     page1.classList.add('hide');
@@ -245,6 +254,7 @@ function exitQuiz() {
 const page3 = document.querySelector('.page_3');
 
 function hide1Show3() {
+    console.log('TESTE')
     page1.classList.add("hide");
     page3.classList.remove("hide");
 
@@ -323,12 +333,12 @@ function createQuestions(nrQuestions) {
 
     for (i = 1; i <= nrQuestions; i++) {
         questions.innerHTML +=
-            `<div class="user_question q${i} docked">
+            `<div class="user_question q${i} docked" data-identifier="question-form">
                 <div class="user_question_title_box">
                     <p>
                         Pergunta ${i}
                     </p>
-                    <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)">
+                    <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)" data-identifier="expand">
                 </div>
                 <div class="hiden_docked hide">
                     <div><input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta"><span class="validation-error">O texto deve ter no mínimo 20 caracteres</span></div>
@@ -386,8 +396,12 @@ let idNewQuiz;
 
 function processResponseAndRenderPage(response) {
     idNewQuiz = response.data.id;
+<<<<<<< HEAD
     getData();
+=======
+>>>>>>> f6942a5057cc1209b3c186e735fa4a483e7ac747
     storeIdLocally(response.data.id);
+    // getData();
     renderQuizzCreatedPage();
 }
 
@@ -398,9 +412,9 @@ function storeIdLocally(id) {
      * Inputs:
      *  - id: quiz id returned by the API after posting the user quiz.
      */
-    console.log(id)
+    // console.log(id)
     let strIds = localStorage.getItem('ids');
-    console.log(strIds);
+    // console.log(strIds);
     let idsArr = JSON.parse(strIds);
     if (idsArr === null) {
         idsArr = [];
@@ -412,6 +426,8 @@ function storeIdLocally(id) {
     localStorage.setItem('ids', strIds);
     console.log('Array of ids:', idsArr)
     console.log('Stringfied array:', strIds)
+    // console.log('Array of ids:', idsArr)
+    // console.log('Stringfied array:', strIds)
 }
 
 function renderLevelsPage(currentPage) {
@@ -431,12 +447,12 @@ function createLevels(nrLevels) {
     levelsContainer.innerHTML = "";
     for (let i = 1; i <= nrLevels; i++) {
         levelsContainer.innerHTML +=
-            `<div class="user_level l${i}">
+            `<div class="user_level l${i}" data-identifier="level">
             <div class="user_level_title_box docked">
                 <p>
                     Nível ${i}
                 </p>
-                <img class='edit_icon' src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)">
+                <img class='edit_icon' src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)" data-identifier="expand">
             </div>
             <div class="hiden_docked hide">
                 <div><input class="level_title quiz_input" type="text" placeholder="Título do Nível"><span class="validation-error">O texto deve ter no mínimo 10 caracteres</span></div>
@@ -580,7 +596,7 @@ function renderQuizzCreatedPage() {
         <button class="page3_button page_3" onclick="showNewQuiz(${idNewQuiz})">
             Acessar Quizz
         </button>
-        <button class="inv_button page_3" onclick="exitQuiz()">
+        <button class="inv_button page_3" onclick="reload()">
             Voltar para home
         </button>`;
 
@@ -851,3 +867,68 @@ function isValidText(elem) {
         return false;
     }
 }
+
+userIds = getUserQuizzes();
+
+function renderUserQuizzes(data) {
+    /**
+     * This function renders the user quizzes (or not, if they do not exist on the API)
+     * on Page 1.
+     * 
+     * Input:
+     *  - data: array of user quizz objects coming from the API.
+     */
+    const localIds = getUserQuizzes();
+    console.log(localIds);
+    let userQuizzes = [];
+
+    if (localIds !== null) {
+        userQuizzes = data.filter(obj => localIds.includes(obj.id));
+    }
+    
+    const userBox = document.querySelector('.user_row');
+    const emptyBox = document.querySelector('.empty_quizzes');
+    console.log(userQuizzes);
+
+    userBox.innerHTML = '';
+    emptyBox.innerHTML = '';
+
+    if (userQuizzes.length !== 0) {
+        // alert('ENTREI COM UQ')
+        emptyBox.classList.add('hide');
+        for (let i = 0; i < userQuizzes.length; i++) {
+            userBox.innerHTML +=
+                `
+                <div id="${userQuizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail" data-identifier="quizz-card">
+                    <div class="overlay"></div>
+                    <img src="${userQuizzes[i].image}" alt="">
+                    <p class="quiz_sub">
+                        ${userQuizzes[i].title}
+                    </p>
+                </div>
+        `;
+        }
+    } else {
+        // alert('ENTREI SEM UQ')
+        document.querySelector('.user_quizzes').classList.add('hide')
+        emptyBox.innerHTML =
+            `
+   
+                <p>
+                    Você não criou nenhum quizz ainda :(
+                </p>
+                <button onclick="hide1Show3()" data-identifier='create-quizz'>
+                    Criar quizz
+                </button>
+         
+        `;
+    }
+
+}
+
+function reload() {
+    window.location.reload();
+    hits = 0;
+}
+
+getData();
