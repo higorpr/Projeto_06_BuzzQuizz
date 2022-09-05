@@ -340,8 +340,10 @@ function createQuestions(nrQuestions) {
                     <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)" data-identifier="expand">
                 </div>
                 <div class="hiden_docked hide">
-                    <div><input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta"><span class="validation-error">O texto deve ter no mínimo 20 caracteres</span></div>
-                    <div><input class="question_color quiz_input" type="color" name ="color" placeholder="Cor de fundo da pergunta"><span class="validation-error">A cor deve ser um código válido do tipo #XXXXXX</span></div>
+                    <div>
+                    <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta"><span class="validation-error">O texto deve ter no mínimo 20 caracteres</span>
+                    </div>
+                    <div"><div class="color-input-container quiz_input"><span class="label-color-input">Escolha a cor da pergunta</span><input class="question_color" type="color" name ="color" placeholder="Cor de fundo da pergunta"></div><span class="validation-error">A cor deve ser um código válido do tipo #XXXXXX</span></div>
                     <p>
                         Resposta correta
                     </p>
