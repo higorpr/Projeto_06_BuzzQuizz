@@ -381,6 +381,8 @@ let idNewQuiz;
 function processResponseAndRenderPage(response){    
     idNewQuiz = response.data.id;
     getData();
+    console.log(response)
+    storeIdLocally(response.data.id);
     renderQuizzCreatedPage();
 }
 
@@ -668,3 +670,5 @@ function isValidColor(color) {
 function getUserQuizzes() {
     return JSON.parse(localStorage.getItem('ids'));
 }
+
+alert(getUserQuizzes()[0]);
