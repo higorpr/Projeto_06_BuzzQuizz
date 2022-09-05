@@ -31,9 +31,11 @@ function renderQuizzes() {
         }
     };
     userIds = getUserQuizzes();
+    document.querySelector('.load_page').classList.add('hide');
 };
 
 function getData() {
+    document.querySelector('.load_page').classList.remove('hide');
     quizzes = [];
     const promisse = axios.get(url);
     promisse.then(dataArrive);
@@ -210,6 +212,7 @@ function renderQuiz(id_element) {
         console.log(questions.children[i]);
         console.log(quiz.questions[i].color);
     };
+    document.querySelector('.load_page').classList.add('hide');
     document.querySelector('.overlay_top').scrollIntoView({ block: "start" });
 };
 
@@ -223,7 +226,9 @@ function showQuiz(element) {
     top_image.classList.remove('hide');
     quiz_content.classList.remove('hide');
 
+    document.querySelector('.load_page').classList.remove('hide');
     renderQuiz(element.id);
+    
 };
 
 function exitQuiz() {

@@ -41,6 +41,25 @@ main {
     justify-content: center;
 }
 
+.load_page {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left:0;
+    background-color: #fafafa;
+    z-index: 4;
+    margin-top: 69px;
+}
+
+.load_gif {
+    width: 20%;
+    height: auto;
+}
+
 .empty_quizzes {
     border: 1px dashed #d4d4d4;
     box-sizing: border-box;
