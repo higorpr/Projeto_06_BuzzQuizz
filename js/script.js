@@ -344,7 +344,7 @@ function createQuestions(nrQuestions) {
                     <div>
                     <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta"><span class="validation-error">O texto deve ter no mínimo 20 caracteres</span>
                     </div>
-                    <div><div class="color-input-container quiz_input"><span class="label-color-input">Escolha a cor da pergunta</span><input class="question_color" type="color" name ="color" placeholder="Cor de fundo da pergunta"></div><span class="validation-error">A cor deve ser um código válido do tipo #XXXXXX</span></div>
+                    <div><div class="color-input-container quiz_input"><span class="label-color-input">Escolha a cor da pergunta</span><input class="question_color" type="color" name ="color" value="#000000" placeholder="Cor de fundo da pergunta"></div><span class="validation-error">A cor deve ser um código válido do tipo #XXXXXX</span></div>
                     <p>
                         Resposta correta
                     </p>
@@ -765,7 +765,7 @@ function isValidUrl(elem) {
 }
 
 function isValidColor(elem) {
-    let container = elem.parentNode;
+    let container = elem.parentNode.parentNode;
     let color = elem.value;
     let regex = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
     if(regex.test(color)){
