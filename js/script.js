@@ -715,12 +715,14 @@ function renderUserQuizzes(data) {
         document.querySelector('.user_quizzes').classList.add('hide')
         emptyBox.innerHTML = 
         `
+   
                 <p>
                     Você não criou nenhum quizz ainda :(
                 </p>
                 <button onclick="hide1Show3()" data-identifier='create-quizz'>
                     Criar quizz
                 </button>
+         
         `;
     }
 
