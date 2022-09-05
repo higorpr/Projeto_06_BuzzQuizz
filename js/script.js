@@ -729,5 +729,4 @@ function renderUserQuizzes(data) {
 
 function reload() {
     window.location.reload();
-    alert('')
 }
