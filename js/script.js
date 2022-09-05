@@ -2,6 +2,7 @@ const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 
 let quizzes = [];
 let quiz = [];
+let userIds = [];
 
 const quiz_row = document.querySelector('.quiz_row');
 const quiz_row_2 = document.querySelector('.quiz_row_2');
@@ -27,7 +28,7 @@ function renderQuizzes() {
             };
         };
     };
-    userIds = getUserQuizzes()
+    userIds = getUserQuizzes();
 };
 
 function dataArrive(response) {
@@ -676,6 +677,8 @@ function isValidColor(color) {
 function getUserQuizzes() {
     return JSON.parse(localStorage.getItem('ids'));
 }
+
+userIds = getUserQuizzes();
 
 function renderUserQuizzes(data) {
     /**
