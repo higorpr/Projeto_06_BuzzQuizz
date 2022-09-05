@@ -21,7 +21,13 @@ function renderQuizzes() {
                     </p>
                 </div>
     `;
+        for( let n = 0; n < userIds.length; n++ ){
+            if( userIds[n] === quizzes[i].id){
+                document.getElementById(quizzes[i].id).remove();
+            };
+        };
     };
+    userIds = getUserQuizzes()
 };
 
 function dataArrive(response) {
@@ -381,8 +387,7 @@ let idNewQuiz;
 
 function processResponseAndRenderPage(response) {
     idNewQuiz = response.data.id;
-    getData();
-    console.log(response)
+    getData();    
     storeIdLocally(response.data.id);
     renderQuizzCreatedPage();
 }
