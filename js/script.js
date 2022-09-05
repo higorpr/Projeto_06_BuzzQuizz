@@ -762,8 +762,6 @@ function getUserQuizzes() {
     return JSON.parse(localStorage.getItem('ids'));
 }
 
-let userIds = getUserQuizzes();
-
 function isValidLevelTitle(elem) {
     let container = elem.parentNode;
     if (elem.value.length >= 10) {
