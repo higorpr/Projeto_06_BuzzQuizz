@@ -690,8 +690,8 @@ function renderUserQuizzes(data) {
      * Input:
      *  - data: array of user quizz objects coming from the API.
      */
-    const localIds = getUserQuizzes();
-    const userQuizzes = data.filter(obj => localIds.includes(obj.id));
+    const userIds = getUserQuizzes();
+    const userQuizzes = data.filter(obj => userIds.includes(obj.id));
     const userBox = document.querySelector('.user_row');
     const emptyBox = document.querySelector('.empty_quizzes');
 
@@ -716,12 +716,14 @@ function renderUserQuizzes(data) {
         document.querySelector('.user_quizzes').classList.add('hide')
         emptyBox.innerHTML = 
         `
+   
                 <p>
                     Você não criou nenhum quizz ainda :(
                 </p>
                 <button onclick="hide1Show3()" data-identifier='create-quizz'>
                     Criar quizz
                 </button>
+         
         `;
     }
 
