@@ -14,7 +14,7 @@ function renderQuizzes() {
     for (let i = 0; i < quizzes.length; i++) {
 
         quiz_row.innerHTML += `
-    <div id="${quizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail">
+    <div id="${quizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail" data-identifier="quizz-card">
                     <div class="overlay"></div>
                     <img src="${quizzes[i].image}" alt="">
                     <p class="quiz_sub">
@@ -185,7 +185,7 @@ function renderQuiz(id_element) {
 
         for (let n = 0; n < number_answers; n++) {
             question_options += `
-            <div class="option" onclick="selectAnswer(this)">
+            <div class="option" onclick="selectAnswer(this)" data-identifier="answer">
                 <div></div>
                 <img src="${quiz.questions[i].answers[n].image}" alt="">
                 <p class="${quiz.questions[i].answers[n].isCorrectAnswer}_answer">
@@ -195,7 +195,7 @@ function renderQuiz(id_element) {
             `
         };
         questions.innerHTML += `
-        <div class="quiz_question">
+        <div class="quiz_question" data-identifier="question">
                 <div class="question_head">
                     <p>
                         ${quiz.questions[i].title}
@@ -325,12 +325,12 @@ function createQuestions(nrQuestions) {
 
     for (i = 1; i <= nrQuestions; i++) {
         questions.innerHTML +=
-            `<div class="user_question q${i} docked">
+            `<div class="user_question q${i} docked" data-identifier="question-form">
                 <div class="user_question_title_box">
                     <p>
                         Pergunta ${i}
                     </p>
-                    <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)">
+                    <img class="edit_icon" src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)" data-identifier="expand">
                 </div>
                 <div class="hiden_docked hide">
                     <input class="question_title quiz_input" type="text" placeholder="Texto da Pergunta">
@@ -433,12 +433,12 @@ function createLevels(nrLevels) {
     levelsContainer.innerHTML = "";
     for (let i = 1; i <= nrLevels; i++) {
         levelsContainer.innerHTML +=
-            `<div class="user_level l${i}">
+            `<div class="user_level l${i}" data-identifier="level">
             <div class="user_level_title_box docked">
                 <p>
                     Nível ${i}
                 </p>
-                <img class='edit_icon' src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)">
+                <img class='edit_icon' src="images/edit_icon.png" alt="" onclick="editQuizzElement(this.parentNode.parentNode)" data-identifier="expand">
             </div>
             <div class="hiden_docked hide">
                 <input class="level_title quiz_input" type="text" placeholder="Título do Nível">
@@ -701,7 +701,7 @@ function renderUserQuizzes(data) {
         for (let i = 0; i < userQuizzes.length; i++) {
             userBox.innerHTML +=
                 `
-        <div id="${userQuizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail">
+        <div id="${userQuizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail" data-identifier="quizz-card">
                     <div class="overlay"></div>
                     <img src="${userQuizzes[i].image}" alt="">
                     <p class="quiz_sub">
@@ -718,7 +718,7 @@ function renderUserQuizzes(data) {
                 <p>
                     Você não criou nenhum quizz ainda :(
                 </p>
-                <button onclick="hide1Show3()">
+                <button onclick="hide1Show3() data-identifier='create-quizz'">
                     Criar quizz
                 </button>
             </div>

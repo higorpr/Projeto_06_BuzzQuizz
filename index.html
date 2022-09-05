@@ -40,9 +40,9 @@
                     <h1>
                         Seus Quizzes
                     </h1>
-                    <ion-icon onclick="hide1Show3()" name="add-circle"></ion-icon>
+                    <ion-icon onclick="hide1Show3()" name="add-circle" data-identifier='create-quizz'></ion-icon>
                 </div>
-                <div class="user_row">
+                <div class="user_row" data-identifier="user-quizzes">
                     <!-- <div class="quiz_thumbnail">
                         <div class="overlay"></div>
                         <img src="images/simpsons_thumbnail.png" alt="">
@@ -80,7 +80,7 @@
                     </div> -->
                 </div>
             </div>
-            <div class="all_quizzes page_1">
+            <div class="all_quizzes page_1" data-identifier="general-quizzes">
                 <h1>
                     Todos os quizzes
                 </h1>
@@ -166,7 +166,7 @@
                     </div>
                 </div>
             </div>-->
-            <div class="quiz_result hide">
+            <div class="quiz_result hide" data-identifier="quizz-result">
                 <!--<div class="result_perc">
                     <p>
                         88% de acerto: Você é praticamente um aluno de Hogwarts!
