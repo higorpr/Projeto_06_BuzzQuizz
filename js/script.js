@@ -323,7 +323,6 @@ function restartQuiz() {
     renderQuiz(id);
 };
 
-
 //Quizz creation utilities
 function createQuestions(nrQuestions) {
     let questions = document.querySelector(".user_questions_box");
