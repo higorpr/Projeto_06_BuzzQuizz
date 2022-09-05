@@ -43,6 +43,7 @@ function dataArrive(response) {
     console.log(quizzes);
 
     renderQuizzes();
+    renderUserQuizzes(response.data);
 };
 
 function getData() {
@@ -242,8 +243,8 @@ function hide1Show3() {
     page1.classList.add("hide");
     page3.classList.remove("hide");
 
-    
-    for( let i = 0; i < page3.childElementCount; i++){
+
+    for (let i = 0; i < page3.childElementCount; i++) {
         page3.children[i].classList.add('hide');
     }
     document.querySelector('.start_user_quiz').classList.remove('hide');
@@ -378,7 +379,7 @@ function createQuizz(currentPage) {
 }
 let idNewQuiz;
 
-function processResponseAndRenderPage(response){    
+function processResponseAndRenderPage(response) {
     idNewQuiz = response.data.id;
     getData();
     console.log(response)
@@ -404,7 +405,7 @@ function storeIdLocally(id) {
 
     idsArr.push(id);
     strIds = JSON.stringify(idsArr);
-    localStorage.setItem('ids',strIds);
+    localStorage.setItem('ids', strIds);
     console.log('Array of ids:', idsArr)
     console.log('Stringfied array:', strIds)
 }
@@ -523,12 +524,12 @@ let quizzTitleTxt;
 let quizzImgUrl
 
 //data vaidation
-function verifyBasicInfoAndLoadNext(currentPage){
+function verifyBasicInfoAndLoadNext(currentPage) {
     quizzTitle = currentPage.querySelector(".quiz-title").value;
     quizzTitleTxt = currentPage.querySelector(".quiz-title").value.length;
     quizzImgUrl = currentPage.querySelector(".quiz-img-url").value;
-    
-    let quizzTitleIsOk = quizzTitleTxt>=20 && quizzTitleTxt<=65;
+
+    let quizzTitleIsOk = quizzTitleTxt >= 20 && quizzTitleTxt <= 65;
     let quizzImgIsOk = isValidUrl(quizzImgUrl);
     let quizzNrQuestionsIsOk = parseInt(currentPage.querySelector(".quiz-nr-questions").value) > 2;
     let quizzNrLevelsIsOk = parseInt(currentPage.querySelector(".quiz-nr-levels").value) > 1;
@@ -541,17 +542,17 @@ function verifyBasicInfoAndLoadNext(currentPage){
 
 }
 
-function showNewQuiz(idNewQ){
+function showNewQuiz(idNewQ) {
     page3.classList.add('hide');
-    
+
     top_image.classList.remove('hide');
     quiz_content.classList.remove('hide');
 
-    
+
     renderQuiz(idNewQ);
 };
 
-function renderQuizzCreatedPage(){
+function renderQuizzCreatedPage() {
     let currentPage = document.querySelector(".user_levels");
     currentPage.classList.add("hide");
     const quizzCreatedPage = document.querySelector(".user_quiz_ready");
@@ -577,7 +578,7 @@ function renderQuizzCreatedPage(){
     quizzCreatedPage.classList.remove("hide");
 }
 
-function verifyQuestionsAndLoadNext(currentPage){
+function verifyQuestionsAndLoadNext(currentPage) {
     let questions = currentPage.querySelectorAll(".user_question");
     let questionIsOkArr = [];
 
@@ -671,4 +672,49 @@ function getUserQuizzes() {
     return JSON.parse(localStorage.getItem('ids'));
 }
 
-alert(getUserQuizzes()[0]);
+function renderUserQuizzes(data) {
+    /**
+     * 
+     */
+    const userIds = getUserQuizzes();
+    const userQuizzes = data.filter(obj => userIds.includes(obj.id));
+    const userBox = document.querySelector('.user_row');
+    const emptyBox = document.querySelector('.empty_quizzes');
+
+    userBox.innerHTML = '';
+    emptyBox.innerHTML = '';
+
+    if (userQuizzes.length !== 0) {
+        emptyBox.classList.add('hide')
+        for (let i = 0; i < userQuizzes.length; i++) {
+            userBox.innerHTML +=
+                `
+        <div id="${userQuizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail">
+                    <div class="overlay"></div>
+                    <img src="${userQuizzes[i].image}" alt="">
+                    <p class="quiz_sub">
+                        ${userQuizzes[i].title}
+                    </p>
+                </div>
+        `
+        }
+    } else {
+        emptyBox.innerHTML = 
+        `
+        <div class="empty_quizzes page_1">
+                <p>
+                    Você não criou nenhum quizz ainda :(
+                </p>
+                <button onclick="hide1Show3()">
+                    Criar quizz
+                </button>
+            </div>
+        `
+    }
+
+
+}
+
+function reload() {
+    window.location.reload();
+}
