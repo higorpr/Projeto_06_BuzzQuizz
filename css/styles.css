@@ -187,6 +187,29 @@ h1 {
     word-break: break-word;
 }
 
+.edit_delet_quiz{
+    width: 43px;
+    height: 87px;
+    background: #EC362D;
+    border-radius: 10px 0px 0px 11px;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.edit_delet_quiz ion-icon{
+    font-size: 25px;
+    color: #FFFFFF;    
+}
+.edit_delet_quiz ion-icon:hover{
+    cursor: pointer;
+}
+
 .top_image {
     position: relative;
     width: 100%;
@@ -592,6 +615,27 @@ span.visible{
 
 .hide {
     display: none;
+}
+
+.color-input-container{
+    border: unset;
+    width: 564px;
+    height: 46px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+input.question_color{
+    width: 56px;
+    height: 100%;
+}
+
+span.label-color-input{
+    line-height: 100%;
+    margin-right: 10px;
+    vertical-align: middle;
+    font-style: normal;
 }
 
 @media (max-width:1100px) {
