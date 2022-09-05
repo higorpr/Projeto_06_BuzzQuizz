@@ -689,8 +689,8 @@ function renderUserQuizzes(data) {
      * Input:
      *  - data: array of user quizz objects coming from the API.
      */
-    const userIds = getUserQuizzes();
-    const userQuizzes = data.filter(obj => userIds.includes(obj.id));
+    const localIds = getUserQuizzes();
+    const userQuizzes = data.filter(obj => localIds.includes(obj.id));
     const userBox = document.querySelector('.user_row');
     const emptyBox = document.querySelector('.empty_quizzes');
 
@@ -729,4 +729,5 @@ function renderUserQuizzes(data) {
 
 function reload() {
     window.location.reload();
+    alert('')
 }
