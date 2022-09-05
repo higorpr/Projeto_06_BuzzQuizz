@@ -602,7 +602,7 @@ h1 {
     background-color: #000000;
 }
 
-.right {
+p.right {
     color: #009c22;
 }
 
@@ -657,6 +657,7 @@ span.label-color-input{
     vertical-align: middle;
     font-style: normal;
 }
+
 .edit_icon:hover{
     cursor: pointer;
 }
