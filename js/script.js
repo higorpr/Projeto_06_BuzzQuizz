@@ -653,7 +653,6 @@ function verifyLevelsAndLoadNext(currentPage) {
         alert("Por favor, preencha os dados corretamente");
     }
 
-
 }
 
 function isValidUrl(url) {
