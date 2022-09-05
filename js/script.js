@@ -14,8 +14,8 @@ function renderQuizzes() {
     for (let i = 0; i < quizzes.length; i++) {
 
         quiz_row.innerHTML += `
-    <div id="${quizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail" data-identifier="quizz-card">
-                    <div class="overlay"></div>
+    <div id="${quizzes[i].id}"  class="quiz_thumbnail" data-identifier="quizz-card">
+                    <div class="overlay" onclick="showQuiz(this)"></div>
                     <img src="${quizzes[i].image}" alt="">
                     <p class="quiz_sub">
                         ${quizzes[i].title}
@@ -32,6 +32,7 @@ function renderQuizzes() {
     };
     userIds = getUserQuizzes();
     document.querySelector('.load_page').classList.add('hide');
+    userKeys = getUserKeys();
 };
 
 function getData() {
@@ -172,7 +173,7 @@ function renderQuiz(id_element) {
     quiz = filter_quiz[0];
     const number_questions = quiz.questions.length;
 
-    top_image.innerHTML += `
+    top_image.innerHTML = `
     <div class="overlay_top"></div>
             <img src="${quiz.image}" alt="">
             <p>
@@ -227,7 +228,7 @@ function showQuiz(element) {
     quiz_content.classList.remove('hide');
 
     document.querySelector('.load_page').classList.remove('hide');
-    renderQuiz(element.id);
+    renderQuiz(element.parentNode.id);
     
 };
 
@@ -398,6 +399,7 @@ let idNewQuiz;
 function processResponseAndRenderPage(response) {
     idNewQuiz = response.data.id;
     storeIdLocally(response.data.id);
+    storeKeyLocally(response.data.key);
     // getData();
     renderQuizzCreatedPage();
 }
@@ -425,6 +427,29 @@ function storeIdLocally(id) {
     console.log('Stringfied array:', strIds)
     // console.log('Array of ids:', idsArr)
     // console.log('Stringfied array:', strIds)
+}
+
+function storeKeyLocally(key) {
+    /**
+     * This function locally stores the key for the created quiz.
+     * 
+     * Inputs:
+     *  - key: quiz key returned by the API after posting the user quiz.
+     */
+    console.log(key)
+    let strKeys = localStorage.getItem('keys');
+    console.log(strKeys);
+    let keysArr = JSON.parse(strKeys);
+    if (keysArr === null) {
+        keysArr = [];
+    }
+
+
+    keysArr.push(key);
+    strKeys = JSON.stringify(keysArr);
+    localStorage.setItem('keys', strKeys);
+    console.log('Array of keys:', keysArr)
+    console.log('Stringfied keys array:', strKeys)
 }
 
 function renderLevelsPage(currentPage) {
@@ -759,6 +784,10 @@ function getUserQuizzes() {
     return JSON.parse(localStorage.getItem('ids'));
 }
 
+function getUserKeys() {
+    return JSON.parse(localStorage.getItem('keys'));
+}
+
 function isValidLevelTitle(elem) {
     let container = elem.parentNode;
     if (elem.value.length >= 10) {
@@ -864,6 +893,7 @@ function isValidText(elem) {
 }
 
 userIds = getUserQuizzes();
+userKeys = getUserKeys();
 
 function renderUserQuizzes(data) {
     /**
@@ -894,12 +924,16 @@ function renderUserQuizzes(data) {
         for (let i = 0; i < userQuizzes.length; i++) {
             userBox.innerHTML +=
                 `
-                <div id="${userQuizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail" data-identifier="quizz-card">
-                    <div class="overlay"></div>
+                <div id="${userQuizzes[i].id}" class="quiz_thumbnail" data-identifier="quizz-card">
+                    <div class="overlay" onclick="showQuiz(this)"></div>
                     <img src="${userQuizzes[i].image}" alt="">
                     <p class="quiz_sub">
                         ${userQuizzes[i].title}
-                    </p>
+                    </p>    
+                    <div class="edit_delet_quiz">
+                    <ion-icon name="create-outline" onclick="editQuiz(this)"></ion-icon>
+                    <ion-icon name="trash-outline" onclick="deleteQuiz(this)"></ion-icon>
+                    </div>
                 </div>
         `;
         }
@@ -927,3 +961,34 @@ function reload() {
 }
 
 getData();
+
+function deleteQuiz(element){
+    let quizSelected = element.parentNode.parentNode;
+    let keySelected;
+    console.log('entrou na funcao');
+    for( i=0; i < userIds.length; i++){
+        console.log(userIds.length);
+        console.log(userIds[i], quizSelected.id);
+        if( userIds[i] == quizSelected.id){
+            console.log('entrou no if');
+            keySelected = userKeys[i];
+            console.log("KEY SELECIONADA", keySelected);
+        };
+    };
+    if(confirm("Você realmente deseja deletar este quiz?")){
+        axios.delete(`${url}/${quizSelected.id}`,{
+            headers: {
+              "Secret-Key": `${keySelected}`,
+            },
+          })
+            .then(() => location.reload());
+    } else{
+        return;
+    };
+    
+};
+
+function editQuiz(element){
+    alert('Desculpe-nos pelos transtornos, esta função ainda será implementada. Estamos trabalhando nisto.');
+};
+
