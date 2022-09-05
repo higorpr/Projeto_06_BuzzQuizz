@@ -214,7 +214,7 @@ function renderQuiz(id_element) {
         console.log(quiz.questions[i].color);
     };
     document.querySelector('.load_page').classList.add('hide');
-    document.querySelector('.overlay_top').scrollIntoView({ block: "start" });
+    goToTop();
 };
 
 const page1 = document.querySelector('.pagina1');
@@ -229,6 +229,7 @@ function showQuiz(element) {
 
     document.querySelector('.load_page').classList.remove('hide');
     renderQuiz(element.parentNode.id);
+    goToTop();
     
 };
 
@@ -322,6 +323,7 @@ function restartQuiz() {
     quiz_result.classList.add('hide');
     hits = 0;
     renderQuiz(id);
+    goToTop();
 };
 
 //Quizz creation utilities
@@ -594,7 +596,7 @@ function showNewQuiz(idNewQ) {
     top_image.classList.remove('hide');
     quiz_content.classList.remove('hide');
 
-
+    document.querySelector('.load_page').remove('hide');
     renderQuiz(idNewQ);
 };
 
@@ -622,6 +624,7 @@ function renderQuizzCreatedPage() {
         </button>`;
 
     quizzCreatedPage.classList.remove("hide");
+    document.querySelector('.load_page').classList.remove('hide');
 }
 
 function verifyQuestionsAndLoadNext(currentPage) {
@@ -741,10 +744,12 @@ function verifyLevelsAndLoadNext(currentPage) {
     })
 
     if (levelsIsOkArr.length === levels.length && levelsWith0Perc.length > 0) {
-        createQuizz(currentPage);
+        document.querySelector('.load_page').remove('hide')
+        createQuizz(currentPage);        
     } else {
         alert("Por favor, preencha os dados corretamente");
     }
+
 
 }
 
@@ -990,4 +995,9 @@ function deleteQuiz(element){
 function editQuiz(element){
     alert('Desculpe-nos pelos transtornos, esta função ainda será implementada. Estamos trabalhando nisto.');
 };
+
+function goToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
 
