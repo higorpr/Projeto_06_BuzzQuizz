@@ -22,17 +22,11 @@ function renderQuizzes() {
                     </p>
                 </div>
     `;
-<<<<<<< HEAD
-        for (let n = 0; n < userIds.length; n++) {
-            if (userIds[n] === quizzes[i].id) {
-                document.getElementById(quizzes[i].id).remove();
-=======
         if (userIds !== null) {
             for (let n = 0; n < userIds.length; n++) {
                 if (userIds[n] === quizzes[i].id) {
                     document.getElementById(quizzes[i].id).remove();
                 };
->>>>>>> f6942a5057cc1209b3c186e735fa4a483e7ac747
             };
         }
     };
@@ -396,10 +390,6 @@ let idNewQuiz;
 
 function processResponseAndRenderPage(response) {
     idNewQuiz = response.data.id;
-<<<<<<< HEAD
-    getData();
-=======
->>>>>>> f6942a5057cc1209b3c186e735fa4a483e7ac747
     storeIdLocally(response.data.id);
     // getData();
     renderQuizzCreatedPage();
