@@ -168,6 +168,29 @@ h1 {
     word-break: break-word;
 }
 
+.edit_delet_quiz{
+    width: 43px;
+    height: 87px;
+    background: #EC362D;
+    border-radius: 10px 0px 0px 11px;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.edit_delet_quiz ion-icon{
+    font-size: 25px;
+    color: #FFFFFF;    
+}
+.edit_delet_quiz ion-icon:hover{
+    cursor: pointer;
+}
+
 .top_image {
     position: relative;
     width: 100%;
