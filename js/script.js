@@ -981,6 +981,7 @@ function deleteQuiz(element){
         };
     };
     if(confirm("Você realmente deseja deletar este quiz?")){
+        
         axios.delete(`${url}/${quizSelected.id}`,{
             headers: {
               "Secret-Key": `${keySelected}`,
