@@ -22,25 +22,32 @@ function renderQuizzes() {
                     </p>
                 </div>
     `;
-
-        for( let n = 0; n < userIds.length; n++ ){
-            if( userIds[n] === quizzes[i].id){
-                document.getElementById(quizzes[i].id).remove();
+        if (userIds !== null) {
+            for (let n = 0; n < userIds.length; n++) {
+                if (userIds[n] === quizzes[i].id) {
+                    document.getElementById(quizzes[i].id).remove();
+                };
             };
-        };
+        }
     };
     userIds = getUserQuizzes();
 };
 
+function getData() {
+    quizzes = [];
+    const promisse = axios.get(url);
+    promisse.then(dataArrive);
+};
+
 function dataArrive(response) {
 
-    // resposta completa
-    console.log("Resposta completa do get", response);
+    // // resposta completa
+    // console.log("Resposta completa do get", response);
 
-    // pegar apenas a lista com os dados dos quizzes
-    console.log("resposta.data do get", response.data);
+    // // pegar apenas a lista com os dados dos quizzes
+    // console.log("resposta.data do get", response.data);
 
-    console.log(response.data[0]);
+    // console.log(response.data[0]);
 
     // etapa 4: processar a resposta e mostrar na tela (renderizar)
 
@@ -52,14 +59,7 @@ function dataArrive(response) {
 
     renderQuizzes();
     renderUserQuizzes(response.data);
-};
-
-function getData() {
-    quizzes = [];
-    const promisse = axios.get(url);
-    promisse.then(dataArrive);
-};
-getData();
+}
 
 function comparator() {
     return Math.random() - 0.5;
@@ -390,8 +390,8 @@ let idNewQuiz;
 
 function processResponseAndRenderPage(response) {
     idNewQuiz = response.data.id;
-    getData();    
     storeIdLocally(response.data.id);
+    // getData();
     renderQuizzCreatedPage();
 }
 
@@ -402,9 +402,9 @@ function storeIdLocally(id) {
      * Inputs:
      *  - id: quiz id returned by the API after posting the user quiz.
      */
-    console.log(id)
+    // console.log(id)
     let strIds = localStorage.getItem('ids');
-    console.log(strIds);
+    // console.log(strIds);
     let idsArr = JSON.parse(strIds);
     if (idsArr === null) {
         idsArr = [];
@@ -414,8 +414,8 @@ function storeIdLocally(id) {
     idsArr.push(id);
     strIds = JSON.stringify(idsArr);
     localStorage.setItem('ids', strIds);
-    console.log('Array of ids:', idsArr)
-    console.log('Stringfied array:', strIds)
+    // console.log('Array of ids:', idsArr)
+    // console.log('Stringfied array:', strIds)
 }
 
 function renderLevelsPage(currentPage) {
@@ -690,20 +690,28 @@ function renderUserQuizzes(data) {
      * Input:
      *  - data: array of user quizz objects coming from the API.
      */
-    const userIds = getUserQuizzes();
-    const userQuizzes = data.filter(obj => userIds.includes(obj.id));
+    const localIds = getUserQuizzes();
+    console.log(localIds);
+    let userQuizzes = [];
+
+    if (localIds !== null) {
+        userQuizzes = data.filter(obj => localIds.includes(obj.id));
+    }
+    
     const userBox = document.querySelector('.user_row');
     const emptyBox = document.querySelector('.empty_quizzes');
+    console.log(userQuizzes);
 
     userBox.innerHTML = '';
     emptyBox.innerHTML = '';
 
     if (userQuizzes.length !== 0) {
+        // alert('ENTREI COM UQ')
         emptyBox.classList.add('hide');
         for (let i = 0; i < userQuizzes.length; i++) {
             userBox.innerHTML +=
                 `
-        <div id="${userQuizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail" data-identifier="quizz-card">
+                <div id="${userQuizzes[i].id}" onclick="showQuiz(this)" class="quiz_thumbnail" data-identifier="quizz-card">
                     <div class="overlay"></div>
                     <img src="${userQuizzes[i].image}" alt="">
                     <p class="quiz_sub">
@@ -713,9 +721,10 @@ function renderUserQuizzes(data) {
         `;
         }
     } else {
+        // alert('ENTREI SEM UQ')
         document.querySelector('.user_quizzes').classList.add('hide')
-        emptyBox.innerHTML = 
-        `
+        emptyBox.innerHTML =
+            `
    
                 <p>
                     Você não criou nenhum quizz ainda :(
@@ -731,5 +740,7 @@ function renderUserQuizzes(data) {
 
 function reload() {
     window.location.reload();
-    console.log('reload function')
+    hits = 0;
 }
+
+getData();
