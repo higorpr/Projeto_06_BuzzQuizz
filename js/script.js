@@ -665,3 +665,7 @@ function isValidColor(color) {
     let regex = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
     return regex.test(color);
 }
+
+function getUserQuizzes() {
+    return JSON.parse(localStorage.getItem('ids'));
+}
