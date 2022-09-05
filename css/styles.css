@@ -385,6 +385,9 @@ h1 {
     border-radius: 15px;
     margin: 57px 0 16px 0;
 }
+.restart:hover{
+    cursor: pointer;
+}
 
 .home {
     border: none;
@@ -430,6 +433,9 @@ h1 {
     text-align: center;
     border: none;
     margin-top: 60px;
+}
+.page3_button:hover{
+    cursor: pointer;
 }
 
 .quiz_general {
@@ -527,6 +533,9 @@ h1 {
     color: #818181;
     border: none;
     background-color: #fafafa;
+}
+.inv_button:hover{
+    cursor: pointer;
 }
 
 .hidden_docked {
@@ -636,6 +645,9 @@ span.label-color-input{
     margin-right: 10px;
     vertical-align: middle;
     font-style: normal;
+}
+.edit_icon:hover{
+    cursor: pointer;
 }
 
 @media (max-width:1100px) {
