@@ -22,6 +22,7 @@ function renderQuizzes() {
                     </p>
                 </div>
     `;
+
         for( let n = 0; n < userIds.length; n++ ){
             if( userIds[n] === quizzes[i].id){
                 document.getElementById(quizzes[i].id).remove();
@@ -724,9 +725,9 @@ function renderUserQuizzes(data) {
         `;
     }
 
-
 }
 
 function reload() {
     window.location.reload();
+    console.log('reload function')
 }
