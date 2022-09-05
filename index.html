@@ -25,6 +25,9 @@
         </p>
     </header>
     <main>
+        <div class="load_page">
+            <img class='load_gif load' src="images/load_gif2.gif" alt="Loading Gif">
+        </div>
         <!-- Beginning Page 1 -->
         <div class="pagina1">
             <div class="empty_quizzes page_1">
@@ -204,11 +207,10 @@
                     Comece pelo começo
                 </h1>
                 <div class="quiz_general">
-                    <input class="quiz-title quiz_input" type="text" placeholder="Título do seu quizz">
-                    <input class="quiz-img-url quiz_input" type="text" placeholder="URL da imagem do seu quizz">
-                    <input class="quiz-nr-questions quiz_input" type="text"
-                        placeholder="Quantidade de perguntas do quizz">
-                    <input class="quiz-nr-levels quiz_input" type="text" placeholder="Quantidades de níveis do quizz">
+                    <div><input class="quiz-title quiz_input" type="text" placeholder="Título do seu quizz"><span class="validation-error">O texto deve ter entre 20 e 65 caracteres</span></div>
+                    <div><input class="quiz-img-url quiz_input" type="text" placeholder="URL da imagem do seu quizz"><span class="validation-error">O valor informado não é uma URL válida</span></div>
+                    <div><input class="quiz-nr-questions quiz_input" type="text" placeholder="Quantidade de perguntas do quizz"><span class="validation-error">O quizz deve ter no mínimo 3 perguntas</span></div>
+                    <div><input class="quiz-nr-levels quiz_input" type="text" placeholder="Quantidades de níveis do quizz"><span class="validation-error">O quizz deve ter no mínimo 2 níveis</span></div>
                 </div>
                 <button class="page3_button" onclick="verifyBasicInfoAndLoadNext(this.parentNode)">
                     Prosseguir para criar perguntas
