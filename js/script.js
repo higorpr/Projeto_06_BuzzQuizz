@@ -579,7 +579,7 @@ function renderQuizzCreatedPage() {
         <button class="page3_button page_3" onclick="showNewQuiz(${idNewQuiz})">
             Acessar Quizz
         </button>
-        <button class="inv_button page_3" onclick="exitQuiz()">
+        <button class="inv_button page_3" onclick="reload()">
             Voltar para home
         </button>`;
 
