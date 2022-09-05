@@ -530,6 +530,9 @@ h1 {
     width: 500px;
     height: 266px;
 }
+.ready_image:hover{
+    cursor: pointer;
+}
 
 .user_quiz_ready .page3_button {
     margin: 45px 0 9px 0px;

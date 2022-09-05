@@ -170,7 +170,9 @@ function renderQuiz(id_element) {
     id = id_element;
     //quiz = quizzes[id_element];
     let filter_quiz = quizzes.filter(dev => dev.id === Number(id_element));
+    console.log(filter_quiz)
     quiz = filter_quiz[0];
+    console.log(quiz);
     const number_questions = quiz.questions.length;
 
     top_image.innerHTML = `
@@ -400,7 +402,7 @@ function processResponseAndRenderPage(response) {
     idNewQuiz = response.data.id;
     storeIdLocally(response.data.id);
     storeKeyLocally(response.data.key);
-    // getData();
+    getData();
     renderQuizzCreatedPage();
 }
 
@@ -743,7 +745,7 @@ function verifyLevelsAndLoadNext(currentPage) {
     })
 
     if (levelsIsOkArr.length === levels.length && levelsWith0Perc.length > 0) {
-        document.querySelector('.load_page').remove('hide')
+        document.querySelector('.load_page').classList.remove('hide')
         createQuizz(currentPage);        
     } else {
         alert("Por favor, preencha os dados corretamente");
