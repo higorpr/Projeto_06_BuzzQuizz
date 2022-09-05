@@ -212,7 +212,7 @@ function renderQuiz(id_element) {
     document.querySelector('.overlay_top').scrollIntoView({ block: "start" });
 };
 
-const page1 = document.querySelector('.page_1');
+const page1 = document.querySelector('.pagina1');
 
 function showQuiz(element) {
     page1.classList.add('hide');
@@ -247,6 +247,7 @@ function exitQuiz() {
 const page3 = document.querySelector('.page_3');
 
 function hide1Show3() {
+    console.log('TESTE')
     page1.classList.add("hide");
     page3.classList.remove("hide");
 
@@ -717,7 +718,7 @@ function renderUserQuizzes(data) {
                 <p>
                     Você não criou nenhum quizz ainda :(
                 </p>
-                <button onclick="hide1Show3() data-identifier='create-quizz'">
+                <button onclick="hide1Show3()" data-identifier='create-quizz'>
                     Criar quizz
                 </button>
         `;
